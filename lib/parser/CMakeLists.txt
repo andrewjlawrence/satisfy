@@ -1,0 +1,2 @@
+project(Parser)
+subdirs(src)
