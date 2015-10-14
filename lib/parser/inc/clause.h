@@ -1,15 +1,21 @@
+/*
+ * Copyright 2015 Andrew Lawrence
+ */
 #ifndef __CLAUSE_H
 #define __CLAUSE_H
 
-// Forward declaration
+#include <vector>
 
+using std::vector;
+
+// Forward declaration
 class Literal;
 
 class Clause {
 public:
-  addliteral(Literal& literal);
+  void addliteral(Literal& literal);
 private:
-  vector<Literal>;
+  vector<Literal> literals;
 };
 
 

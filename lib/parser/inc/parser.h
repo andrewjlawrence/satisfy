@@ -3,15 +3,15 @@
 
 #include <string>
 
-using std::string
+using std::string;
 
 class CNF;
 
 class Parser {
- public:
-  Parser(string& inpath)
-    load(CNF& formula)
- private:
+public:
+	Parser(string& inpath);
+	void load(CNF& formula);
+private:
   string path;
 };
 
