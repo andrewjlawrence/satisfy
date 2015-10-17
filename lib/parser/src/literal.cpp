@@ -2,22 +2,25 @@
 /*
  * Copyright 2015 Andrew Lawrence
  */
-
-Literal::Literal(int variable, polarity pol)
-	:var(variable), pol(pol)
-{}
-
-void Literal::assign_pos()
+namespace parsing
 {
-	pol = Pos;
-}
+	Literal::Literal(int variable, Polarity pol)
+		:var(variable), pol(pol)
+	{}
 
-void Literal::assign_neg()
-{
-	pol = Neg;
-}
+	void Literal::assign_pos()
+	{
+		pol = Polarity::Pos;
+	}
 
-void Literal::unassign()
-{
-	pol = Unassigned;
+	void Literal::assign_neg()
+	{
+		pol = Polarity::Neg;
+	}
+
+	void Literal::unassign()
+	{
+		pol = Polarity::Unassigned;
+	}
 }
+ // End namespace parsing

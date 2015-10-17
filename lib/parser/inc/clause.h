@@ -5,18 +5,17 @@
 #define __CLAUSE_H
 
 #include <vector>
+#include <literal.h>
 
 using std::vector;
 
-// Forward declaration
-class Literal;
-
-class Clause {
-public:
-  void addliteral(Literal& literal);
-private:
-  vector<Literal> literals;
-};
-
-
+namespace parsing
+{
+	class Clause {
+	public:
+		void addliteral(Literal& literal);
+	private:
+		vector<Literal> literals;
+	};
+} // End namespace parsing
 #endif

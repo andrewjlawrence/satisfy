@@ -3,7 +3,10 @@
  * Copyright 2015 Andrew Lawrence
  */
 
-void Clause::addliteral(Literal & literal)
+namespace parsing
 {
-	literals.push_back(literal);
+	void Clause::addliteral(Literal & literal)
+	{
+		literals.push_back(literal);
+	}
 }

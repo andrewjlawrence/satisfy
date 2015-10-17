@@ -23,3 +23,6 @@ lib/parser/CMakeFiles/TargetDirectories.txt
 *.sdf
 *.sln
 lib/parser/CMakeCache.txt
+*.lib
+*.pdb
+lib/parser/Parser.opensdf

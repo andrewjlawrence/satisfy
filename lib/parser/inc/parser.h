@@ -1,18 +1,24 @@
-#ifndef __PARSER_H
-#define __PARSER_H
+/*
+* Copyright 2015 Andrew Lawrence
+*/
+#ifndef __DIMACSPARSER_H
+#define __DIMACSPARSER_H
 
 #include <string>
 
 using std::string;
 
-class CNF;
+namespace parsing
+{
+	class CNF;
 
-class Parser {
-public:
-	Parser(string& inpath);
-	void load(CNF& formula);
-private:
-  string path;
-};
+	class DimacsParser {
+	public:
+		DimacsParser(string& inpath);
+		void load(CNF& formula);
+	private:
+		string path;
+	};
 
-#endif
+} // end namespace parsing
+#endif // End __DIMACSPARSER_H

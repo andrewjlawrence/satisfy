@@ -1,25 +1,24 @@
 /*
  * Copyright 2015 Andrew Lawrence
  */
-#ifndef __CLAUSE_H
-#define __CLAUSE_H
+#ifndef __CNF_H
+#define __CNF_H
 
 #include <vector>
 #include <iostream>
+#include <clause.h>
 
-using std::ostream;
+using std::istream;
 using std::vector;
 
-// Forward declaration
-class Clause;
-
-//! Class for conjunctive normal form
-class CNF {
-public:
-  void addclause(Clause& clause);
-  ostream& operator<<(const CNF& rhs);
- private:
-  vector<Clause> clauses;
-};
-
+namespace parsing
+{
+	//! Class for conjunctive normal form
+	class CNF {
+	public:
+		void addclause(Clause& clause);
+	private:
+		vector<Clause> clauses;
+	};
+} // End namespace parsing
 #endif // __CLAUSE_H

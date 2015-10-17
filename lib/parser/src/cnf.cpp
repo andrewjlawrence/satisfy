@@ -3,13 +3,10 @@
  */
 #include "..\inc\cnf.h"
 
-
-void CNF::addclause(Clause& clause)
+namespace parsing
 {
-	clauses.push_back(clause);
-}
-
-ostream & CNF::operator<<(const CNF & rhs)
-{
-	  // TODO: insert return statement here
-}
+	void CNF::addclause(Clause& clause)
+	{
+		clauses.push_back(clause);
+	}
+} // End namespace parsing
