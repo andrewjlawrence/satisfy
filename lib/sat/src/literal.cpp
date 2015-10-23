@@ -1,8 +1,10 @@
-#include "..\inc\literal.h"
 /*
  * Copyright 2015 Andrew Lawrence
  */
-namespace parsing
+
+#include <literal.h>
+
+namespace SAT
 {
 	Literal::Literal(int variable, Polarity pol)
 		:var(variable), pol(pol)
@@ -21,6 +23,11 @@ namespace parsing
 	void Literal::unassign()
 	{
 		pol = Polarity::Unassigned;
+	}
+
+	bool Literal::isAssignedPos()
+	{
+		return pol == Literal::Polarity::Pos;
 	}
 }
  // End namespace parsing

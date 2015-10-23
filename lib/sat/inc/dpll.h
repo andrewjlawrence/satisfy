@@ -10,18 +10,14 @@
 using std::shared_ptr;
 using std::string;
 
-// Forward declaration
-namespace SAT 
+namespace SAT
 {
 	class CNF;
-}
 
-namespace parsing
-{
-	class DimacsParser {
+	class DPLL {
 	public:
-		DimacsParser(const string& inpath);
-		bool load(shared_ptr<SAT::CNF>& formula);
+		DPLL();
+		bool solve(shared_ptr<CNF>& formula);
 	private:
 		string path;
 	};

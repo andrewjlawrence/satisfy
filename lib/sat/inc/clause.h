@@ -9,13 +9,15 @@
 
 using std::vector;
 
-namespace parsing
+namespace SAT
 {
 	class Clause {
 	public:
 		void addliteral(Literal& literal);
+		bool isSatisfied();
 	private:
 		vector<Literal> literals;
+		bool satisfied;
 	};
 } // End namespace parsing
 #endif

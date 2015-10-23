@@ -4,16 +4,19 @@
 #ifndef __LITERAL_H
 #define __LITERAL_H
 
-namespace parsing
+namespace SAT
 {
-	class Literal {
+	class Literal 
+	{
+	public:
 		enum class Polarity { Pos, Neg, Unassigned };
 
-	public:
 		Literal(int variable, Polarity pol);
 		void assign_pos();
 		void assign_neg();
 		void unassign();
+		bool isAssignedPos();
+
 	private:
 		int var;
 		Polarity pol;
