@@ -5,10 +5,16 @@
 #include <cnf.h>
 #include <algorithm>
 
+using std::all_of;
+using std::for_each;
+using std::placeholders::_1;
+using std::find_if;
+using std::bind;
+
 namespace SAT
 {
-	CNF::CNF(uint16_t clauseNumber, uint16_t variableNumber)
-		:clauseNumber(clauseNumber), variableNumber(variableNumber)
+	CNF::CNF(uint16_t variableNumber, uint16_t clauseNumber)
+		:variableNumber(variableNumber),clauseNumber(clauseNumber)
 	{
 		clauses.reserve(clauseNumber);
 	}
@@ -28,13 +34,24 @@ namespace SAT
 		return variableNumber;
 	}
 
-	void CNF::assignVariable(uint16_t variableNumber, bool assignment)
+	void CNF::assignVariableTrue(uint16_t variableNumber)
 	{
-		
+		for_each(clauses.begin(), clauses.end(), bind(&Clause::assignVariableTrue, _1, variableNumber));
+	}
+
+	void CNF::assignVariableFalse(uint16_t variableNumber)
+	{
+		for_each(clauses.begin(), clauses.end(), bind(&Clause::assignVariableTrue, _1, variableNumber));
 	}
 
 	bool CNF::isSatisfied()
 	{
-		return all_of(clauses.begin(), clauses.end(), std::bind(&Clause::isSatisfied, std::placeholders::_1));
+		return all_of(clauses.begin(), clauses.end(), bind(&Clause::isSatisfied, _1));
 	}
+
+	bool CNF::hasConflict()
+	{
+		return find_if(clauses.begin(), clauses.end(), bind(&Clause::isConflict, _1)) != clauses.end();
+	}
+
 } // End namespace parsing

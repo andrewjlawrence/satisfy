@@ -29,5 +29,15 @@ namespace SAT
 	{
 		return pol == Literal::Polarity::Pos;
 	}
+
+	bool Literal::isAssignedNeg()
+	{
+		return false;
+	}
+
+	int Literal::getVariable()
+	{
+		return var;
+	}
 }
  // End namespace parsing

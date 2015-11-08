@@ -41,3 +41,13 @@ lib/CMakeFiles/TargetDirectories.txt
 lib/sat/CMakeFiles/3.3.2/CompilerIdCXX/CMakeCXXCompilerId.cpp
 lib/sat/CMakeFiles/TargetDirectories.txt
 satisy.opensdf
+*.aux
+doc/manual/Main.maf
+*.mtc
+doc/manual/Main.mtc0
+*.mtc1
+doc/manual/Main.mtc2
+doc/manual/Main.pdf
+doc/manual/Main.synctex.gz
+*.toc
+solver.vcxproj.user

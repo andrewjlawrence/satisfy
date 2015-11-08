@@ -1,0 +1,35 @@
+\manualchapter{An Overview of DPLL SAT Solvers: The State of The Art}{An Overview of DPLL SAT Solvers: The State of The Art}
+\chaptermark{An Overview of DPLL SAT Solvers}
+This document is concerned with a class of algorithms called satisfiability or SAT solvers.
+These algorithms solve the boolean satisfaction problem for propositional logic. 
+\textbf{Copy stuff from these chapter here and rework as needed.}
+
+\begin{lstlisting}[caption = Example Recursive DPLL Algorithm,mathescape, label = cl:dpllalg]
+DPLL($\Delta, \Gamma$)
+$(\Delta, \Gamma) := \mathrm{UnitResolution}(\Delta, \Gamma)$
+if $\Delta = \emptyset$ then
+    return $\Gamma$
+else if $ \emptyset \in \Delta$ then
+    return UNSAT
+else
+    $l := \mathrm{Select}(\Delta, \Gamma)$
+    if $M$ = DPLL($\Delta, \Gamma \cup \{l\}$) $\neq$ UNSAT then
+        return $M \cup \{ l \}$ 
+    else if $M$ = DPLL($\Delta, \Gamma \cup \{\neg l\}$) $\neq$ UNSAT then 
+        return $M \cup \{ \mybar{l} \}$ 
+    else
+        return UNSAT
+\end{lstlisting}
+
+\begin{lstlisting}[caption = Example Recursive DPLL Algorithm,mathescape, label = cl:dpllalg]
+DPLL($\Delta, \Gamma$)
+while ($l := \mathrm{Select}(\Delta, \Gamma))$) {
+$(\Delta, \Gamma) := \mathrm{UnitResolution}(\Delta, \Gamma)$
+if $\Delta = \emptyset$ then
+    return $\Gamma$
+else if $ \emptyset \in \Delta$ then
+    $\Gamma := \mathrm{Backtrack}(\Gamma)$
+}
+return UNSAT
+\end{lstlisting}
+

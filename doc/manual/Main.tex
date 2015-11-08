@@ -1,0 +1,244 @@
+\documentclass[11pt, a4paper, twoside, openright]{book}
+\usepackage{a4wide}
+\usepackage{amsmath,amssymb, amsthm} % AMS math
+\usepackage{color}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{fancyvrb}
+\usepackage{floatflt}
+\usepackage{multirow}
+\usepackage{url}
+\usepackage{rotating}
+\usepackage{placeins}
+ \usepackage{todonotes}
+\usepackage{listings}
+\usepackage{minitoc}
+\usepackage{nextpage}
+\usepackage{parskip}
+\usepackage{setspace} 
+\usepackage{xspace}
+\usepackage{float}
+\usepackage{subfig}
+\usepackage{subfloat}
+\usepackage{booktabs}
+\usepackage{makeidx}
+\usepackage{nth}
+\usepackage{soul}
+\usepackage[nodayofweek,level]{datetime}
+
+\newcommand*\justify{%
+  \fontdimen2\font=0.4em% interword space
+  \fontdimen3\font=0.2em% interword stretch
+  \fontdimen4\font=0.1em% interword shrink
+  \fontdimen7\font=0.1em% extra space
+  \hyphenchar\font=`\-% allowing hyphenation
+}
+
+
+
+\pdfcompresslevel=9
+
+\setcounter{tocdepth}{1}
+\setcounter{minitocdepth}{1}
+\setcounter{secnumdepth}{3}
+
+
+\pagestyle{fancyplain}
+\renewcommand{\chaptermark}[1]%
+        {\markboth{\chaptername\ \thechapter\ \ #1}{}}
+\renewcommand{\sectionmark}[1]%
+        {\markright{\thesection\ \ #1}}
+\fancyhead[LE,RO]{\fancyplain{}{\thepage}}
+\fancyhead[RE]{\fancyplain{}{\it\leftmark}}
+\fancyhead[LO]{\fancyplain{}{\it\rightmark}}
+\fancyfoot[C]{\fancyplain{\thepage}{}}                                         
+
+\setlength{\headheight}{15pt} 
+
+\newcommand{\manualchapter}[2]{\chapter[#2]{#1}\minitoc}
+
+\usepackage{stmaryrd, hyphenat}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{verbatim} 
+\usepackage{mathtools}
+\usepackage{xspace}
+\usepackage{bussproofs}
+\usepackage{multirow}
+\usepackage{framed}
+\usepackage{listings}
+\usepackage{afterpage}
+\lstset{numbers = left , stepnumber = 1 ,  framexleftmargin=30pt, frame = single}
+
+\providecommand{\Monus}{% Don't redefine it if available
+  \mathbin{% We want a binary operation
+    \vphantom{+}% The same height as a plus or minus
+    \text{% Change size in sub/superscripts
+      \mathsurround=0pt % To be on the safe side
+      \ooalign{% Superimpose the two symbols
+        \noalign{\kern-.35ex}% but the dot is raised a bit
+        \hidewidth$\smash{\cdot}$\hidewidth\cr % Dot
+        \noalign{\kern.35ex}% Backup for vertical alignment
+        $-$\cr % Minus
+      }%
+    }%
+  }%
+}
+
+\newcommand{\mybar}[1]{\overline{#1}}
+\newcommand{\mypause}{\pause}
+\newcommand{\var}[1]{\mathrm{Var}(#1)}
+\newcommand{\freevar}[1]{\mathrm{FreeVar}(#1)}
+
+
+
+% \newenvironment{proof}[1][Proof]{\begin{trivlist}
+% \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+
+\newcommand{\SCADE}{{SCADE\ }}
+\newcommand{\scade}{{\small \sc \textit{SCADE}}}
+
+% \newtheorem{theorem}{Theorem}[section]
+
+\usepackage{tikz}
+\usepgflibrary{arrows}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,fit}
+\usetikzlibrary{shapes.geometric}
+\usepgflibrary{shapes.geometric}
+\usetikzlibrary{shapes.symbols}
+\usepgflibrary{shapes.callouts}
+\usetikzlibrary{shapes.callouts}
+\usepgflibrary{arrows}
+\usetikzlibrary{through} 
+%%\usetikzlibrary{arrows,backgrounds,snakes,shapes}
+
+\renewcommand{\lstlistingname}{Algorithm}
+
+\newcommand{\nodeLink}[1]{
+  %% Draw a -
+  -- ++(0.5,0) node[inner sep=0pt, minimum size=0pt] (#1){};
+}
+
+\newcommand{\nodeLinkInline}[1]{
+  %% Draw a -
+  -- ++(0.5,0) node[inner sep=0pt, minimum size=0pt] (#1){} -- ++(0.5,0) 
+}
+
+
+\newcommand\boxAngle{150}
+
+
+\newcommand{\mybox}[5]{ 
+  %% #1 = Width, #2 = Height, #3 = Depth, #4 = x, #5 = y
+  %% Front face
+  \draw  (#4,#5) rectangle +(#1,#2);
+  %% Draw side
+  \draw [fill=gray!25] (#4,#5) -- ++(\boxAngle:#3) -- ++(0,#2) -- ++(\boxAngle:-#3);
+  %% Draw top
+  \draw [fill=gray!50] (#4,#5) ++(0,#2) -- ++(\boxAngle:#3) -- ++(#1,0) -- ++(\boxAngle:-#3);
+}
+
+\tikzstyle{myArrow}=[draw,->, line width=1.5pt]
+
+\tikzstyle{box}=[fill=blue!20,draw=blue!80,rounded corners,thick,text width=1.9cm,text centered,font=\tiny]
+\tikzstyle{box3}=[draw,thick,text width=1.9cm,text centered,font=\tiny]
+\tikzstyle{oval}=[box,fill=red!20,draw=red!80]
+\tikzstyle{rdm}=[box,fill=green!20,draw=green!80]
+
+\tikzstyle{to}=[->,thick,shorten >=1pt,shorten <=1pt]
+\tikzstyle{from}=[to,<-]
+\tikzstyle{train}=[line width=3pt,color=blue,>=fast cap,<-,densely dashed]
+
+\usepgflibrary{arrows}
+\usetikzlibrary{through} 
+
+\def\kw#1{{\color{red}#1}}
+\def\dull#1{{\color{black!75}#1}}
+
+
+\newtheorem{mydef}{Definition}
+\newtheorem{mytheorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{myremark}{Remark}
+\newtheorem{proofbegin}{Proof}
+\newtheorem{mylemma}{Lemma}
+\newtheorem{myproof}{Proof}
+\newtheorem{myexample}{Example}
+\newtheorem{mycorollary}{Corollary}
+
+\newcommand{\dpllrule}[1]{\mathbf{#1}}
+\newcommand{\Conflict}{\dpllrule{Conflict}}
+\newcommand{\Unit}{\dpllrule{Unit}}
+\newcommand{\Elim}{\dpllrule{Elim}}
+\newcommand{\Red}{\dpllrule{Red}}
+\newcommand{\Split}{\dpllrule{Split}}
+\newcommand{\resrule}[1]{\mathbf{#1}}
+\newcommand{\Res}{\resrule{Res}}
+\newcommand{\Sub}{\resrule{Sub}}
+\newcommand{\consistent}[1]{\mathrm{cons}(#1)}
+\newcommand{\consvals}{\mathrm{Cons}}
+\newcommand{\mynote}[1]{{{\textbf{#1}}}}
+\newcommand{\Nat}{{\mathbb N}}
+\newcommand{\Real}{{\mathbb R}}
+\newcommand{\compatible}[2]{\mathrm{compatible}(#1,#2)}
+\newcommand{\incompatible}[2]{\mathrm{incompatible}(#1,#2)}
+\newcommand{\modres}[1]{\overset{#1}{\underset{\text{\tiny Res}}{\vdash}}}
+\newcommand{\moddpll}[1]{\overset{#1}{\underset{\text{\tiny DPLL}}{\vdash}}}
+\newcommand{\True}{\mathrm{True}}
+\newcommand{\muu}[3]{\mu(#1;#2;#3)}
+\newcommand{\measure}[2]{|#2 \setminus\!\!\setminus \var{#1}|}
+\newcommand{\weight}[1]{\#(#1)}
+\newcommand{\NC}{\mathrm{nc}}
+\newcommand{\forallnc}{\forall_{\NC}}
+\newcommand{\existsnc}{\exists_{\NC}}
+
+\newcommand{\BD}[1]{\mathrm{BD}(#1)}
+\newcommand{\DMA}[2]{\mathrm{DMA}(#1,#2)}
+
+
+\begin{document}
+
+${ \ } $ \vspace{4cm}
+%
+%% Titlepage 1 
+%
+
+\begin{center}
+{\huge \bf The Satisfy SAT Solver}
+\end{center}
+
+\begin{center}
+{\large \bf Andrew Lawrence}
+\end{center}
+
+\begin{center}
+\today
+\end{center}
+
+\vspace{2.5cm}
+
+\vfill
+
+\thispagestyle{empty}
+
+\newpage
+\thispagestyle{empty}
+
+\mbox{}
+
+\clearpage
+\thispagestyle{empty}
+\mbox{}
+
+\newpage
+\dominitoc
+\tableofcontents
+
+\clearpage
+
+\input{Introduction.tex}
+
+\input{BackgroundSAT.tex}
+
+\end{document}

@@ -16,17 +16,9 @@ using std::shared_ptr;
 
 namespace 
 {
-	vector<uint16_t> generateorder(uint16_t variableNumber)
+	SAT::variable select(shared_ptr<SAT::CNF>& formula, SAT::Model& model)
 	{
-		vector<uint16_t> result;
-		for (int i = 1;
-		     i < variableNumber;
-		     i++)
-		{
-			result.push_back(i);
-		}
-		
-		 return result;
+
 	}
 }
 
@@ -37,46 +29,62 @@ namespace SAT
 	{
 	}
 
+	void DPLL::unitresolution(shared_ptr<CNF>& formula, Model& model)
+	{
+
+	}
+
+	void DPLL::backtrack(Model& model)
+	{
+		for (auto itr = model.rbegin();
+			 itr != model.rend();
+			 itr++)
+		{
+			if (itr->second)
+			{
+				itr->second = false;
+			}
+			else
+			{
+				model.erase((itr + 1).base());
+				if (model.empty())
+				{
+					
+				}
+			}
+		}
+	}
+
 	bool DPLL::solve(shared_ptr<CNF>& formula)
 	{
 		if (formula)
 		{
-			vector<uint16_t> order = generateorder(formula->getVariableNumber());
-			map<uint16_t, bool> valuation;
+			// This is a model of our formula that maps variables to booleans
+			Model valuation;
 
-			for (vector<uint16_t>::const_iterator itr = order.begin();
-			     itr != order.end();
-			     )
+			while (variable v = select(formula, valuation))
 			{
-				// Case variable has yet to be assigned;
-				map<uint16_t, bool>::const_iterator itr2 = valuation.find(*itr);
-				if (itr2 == valuation.end())
+				// Add the variable to the valuation as a positive literal
+				// Backtracking will flip to negative literals if possible
+				valuation.insert(Assignment(v, true));
+				
+				// Perform unit resolution
+				unitresolution(formula, valuation);
+				
+				// Check if the formula has been satisfied
+				if (formula->isSatisfied())
 				{
-					valuation.insert(std::pair<uint16_t, bool>(*itr, true));
-					formula->assignVariable(*itr, true);
-					itr++;
+					return true;
 				}
-				else
+
+				// We have found a conflict so backtrack.
+				if (formula->hasConflict())
 				{
-					if (itr2->second == true)
-					{
-						valuation.insert(std::pair<uint16_t, bool>(*itr, false));
-						itr++;
-					}
-					else
-					{
-						if (itr == order.begin())
-						{
-							return false;
-						}
-						else
-						{
-							itr--;
-						}
-					}
+					backtrack(valuation);
 				}
 			}
 		}
-		return formula->isSatisfied();
+
+		return false;
 	}
 } // End namespace SAT

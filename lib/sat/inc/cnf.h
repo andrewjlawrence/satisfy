@@ -19,13 +19,14 @@ namespace SAT
 	//! Class for conjunctive normal form
 	class CNF {
 	public:
-		CNF(uint16_t clauseNumber, uint16_t variableNumber);
+		CNF(uint16_t variableNumber, uint16_t clauseNumber);
 		void addclause(Clause& clause);
 		void getclauses(vector<Clause>& outClauses);
 		uint16_t getVariableNumber();
-		void assignVariable(uint16_t variableNumber, bool assignment);
+		void assignVariableTrue(uint16_t variableNumber);
+		void assignVariableFalse(uint16_t variableNumber);
 		bool isSatisfied();
-
+		bool hasConflict();
 	private:
 		vector<Clause> clauses;
 		uint16_t clauseNumber; // This is going to be the maximum number of clauses

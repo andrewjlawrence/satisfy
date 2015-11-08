@@ -85,7 +85,7 @@ namespace parsing
 							streamline >> variableNumber;
 							streamline >> clauseNumber;
 
-							formula = std::make_shared<CNF>(CNF(clauseNumber, variableNumber));
+							formula = std::make_shared<CNF>(CNF(variableNumber, clauseNumber));
 
 							headerRead = true;
 						}

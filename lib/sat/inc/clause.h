@@ -14,10 +14,12 @@ namespace SAT
 	class Clause {
 	public:
 		void addliteral(Literal& literal);
+		void assignVariableTrue(uint16_t variableNumber);
+		void assignVariableFalse(uint16_t variableNumber);
 		bool isSatisfied();
+		bool isConflict();
 	private:
 		vector<Literal> literals;
-		bool satisfied;
 	};
 } // End namespace parsing
 #endif

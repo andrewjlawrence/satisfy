@@ -16,6 +16,8 @@ namespace SAT
 		void assign_neg();
 		void unassign();
 		bool isAssignedPos();
+		bool isAssignedNeg();
+		int getVariable();
 
 	private:
 		int var;
