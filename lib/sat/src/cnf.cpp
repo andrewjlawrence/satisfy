@@ -34,14 +34,19 @@ namespace SAT
 		return variableNumber;
 	}
 
-	void CNF::assignVariableTrue(uint16_t variableNumber)
+	void CNF::assignVariableTrue(variable variableNumber)
 	{
 		for_each(clauses.begin(), clauses.end(), bind(&Clause::assignVariableTrue, _1, variableNumber));
 	}
 
-	void CNF::assignVariableFalse(uint16_t variableNumber)
+	void CNF::assignVariableFalse(variable variableNumber)
 	{
 		for_each(clauses.begin(), clauses.end(), bind(&Clause::assignVariableTrue, _1, variableNumber));
+	}
+
+	void CNF::unassignVariable(variable variableNumber)
+	{
+		for_each(clauses.begin(), clauses.end(), bind(&Clause::unassignVariable, _1, variableNumber));
 	}
 
 	bool CNF::isSatisfied()

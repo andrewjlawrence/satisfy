@@ -2,23 +2,29 @@
  * Copyright 2015 Andrew Lawrence
  */
 
+// STL includes
 #include <memory>
 #include <clause.h>
-#include <cnf.h>
-#include <dpll.h>
 #include <map>
 #include <vector>
 
+// Project includes
+#include <cnf.h>
+#include <dpll.h>
 
+// Using declarations
 using std::map;
 using std::vector;
 using std::shared_ptr;
 
 namespace 
 {
+	// Hack! For now we just select the first unassigned variable
 	SAT::variable select(shared_ptr<SAT::CNF>& formula, SAT::Model& model)
 	{
+		SAT::variable v(0);
 
+		return v;
 	}
 }
 

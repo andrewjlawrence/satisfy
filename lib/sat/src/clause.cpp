@@ -26,6 +26,12 @@ namespace SAT
 		(0 < itr->getVariable()) ? itr->assign_pos() : itr->assign_neg();
 	}
 
+	void Clause::unassignVariable(uint16_t variableNumber)
+	{
+		auto itr = find_if(literals.begin(), literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber || -lit.getVariable() == variableNumber;});
+		(0 < itr->getVariable()) ? itr->assign_pos() : itr->assign_neg();
+	}
+
 	void Clause::assignVariableFalse(uint16_t variableNumber)
 	{
 		auto itr = find_if(literals.begin(), literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber || -lit.getVariable() == variableNumber;});

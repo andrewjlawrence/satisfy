@@ -23,5 +23,5 @@ namespace SAT
 		int var;
 		Polarity pol;
 	};
-} // End namespace parsing
+} // End namespace SAT
 #endif // __LITERAL_H

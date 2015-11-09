@@ -51,3 +51,4 @@ doc/manual/Main.pdf
 doc/manual/Main.synctex.gz
 *.toc
 solver.vcxproj.user
+*.opensdf
