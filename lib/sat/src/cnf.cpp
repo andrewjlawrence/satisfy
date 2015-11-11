@@ -23,7 +23,17 @@ namespace SAT
 	{
 		clauses.push_back(clause);
 	}
-	
+
+	vector<Clause>::const_iterator CNF::cbegin()
+	{
+		return clauses.cbegin();
+	}
+
+	vector<Clause>::const_iterator CNF::cend()
+	{
+		return clauses.cend();
+	}
+
 	void CNF::getclauses(vector<Clause>& outClauses)
 	{
 		outClauses = clauses;
@@ -59,4 +69,4 @@ namespace SAT
 		return find_if(clauses.begin(), clauses.end(), bind(&Clause::isConflict, _1)) != clauses.end();
 	}
 
-} // End namespace parsing
+} // End namespace SAT

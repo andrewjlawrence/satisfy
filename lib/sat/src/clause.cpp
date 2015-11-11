@@ -18,32 +18,43 @@ namespace SAT
 		literals.push_back(literal);
 	}
 
-	void Clause::assignVariableTrue(uint16_t variableNumber)
+	void Clause::assignVariableTrue(variable variableNumber)
 	{
 		// We make the assumption that the clause is not trivially satisfiable i.e.
 		// it contains the literals ¬x and x
-		auto itr = find_if(literals.begin(), literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber || -lit.getVariable() == variableNumber;});
-		(0 < itr->getVariable()) ? itr->assign_pos() : itr->assign_neg();
+		auto itr = find_if(literals.begin(), literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber;});
+		(itr->getPolarity()) ? itr->assign_true() : itr->assign_false();
 	}
 
-	void Clause::unassignVariable(uint16_t variableNumber)
+	void Clause::unassignVariable(variable variableNumber)
 	{
-		auto itr = find_if(literals.begin(), literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber || -lit.getVariable() == variableNumber;});
-		(0 < itr->getVariable()) ? itr->assign_pos() : itr->assign_neg();
+		auto itr = find_if(literals.begin(), literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber;});
+		(itr->getPolarity()) ? itr->assign_true() : itr->assign_false();
 	}
 
-	void Clause::assignVariableFalse(uint16_t variableNumber)
+	void Clause::assignVariableFalse(variable variableNumber)
 	{
-		auto itr = find_if(literals.begin(), literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber || -lit.getVariable() == variableNumber;});
-		(itr->getVariable() < 0) ? itr->assign_pos() : itr->assign_neg();
+		auto itr = find_if(literals.begin(), literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber;});
+		(itr->getPolarity()) ? itr->assign_true() : itr->assign_false();
 	}
 
 	bool Clause::isSatisfied()
 	{
-		return find_if(literals.begin(), literals.end(), bind(&Literal::isAssignedPos, _1)) != literals.end();
+		return find_if(literals.begin(), literals.end(), bind(&Literal::isAssignedTrue, _1)) != literals.end();
 	}
 	bool Clause::isConflict()
 	{
-		return all_of(literals.begin(), literals.end(), bind(&Literal::isAssignedNeg, _1));
+		return all_of(literals.begin(), literals.end(), bind(&Literal::isAssignedFalse, _1));
 	}
-}
+
+	vector<Literal>::const_iterator Clause::cbegin() const
+	{
+		return literals.cbegin();
+	}
+
+	vector<Literal>::const_iterator Clause::cend() const
+	{
+		return literals.cend();
+	}
+
+}// End namespace SAT

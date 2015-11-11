@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <literal.h>
+#include <sat-types.h>
 
 using std::vector;
 
@@ -14,11 +15,14 @@ namespace SAT
 	class Clause {
 	public:
 		void addliteral(Literal& literal);
-		void assignVariableTrue(uint16_t variableNumber);
-		void unassignVariable(uint16_t variableNumber);
-		void assignVariableFalse(uint16_t variableNumber);
+		void assignVariableTrue(variable variableNumber);
+		void unassignVariable(variable variableNumber);
+		void assignVariableFalse(variable variableNumber);
 		bool isSatisfied();
 		bool isConflict();
+		vector<Literal>::const_iterator cbegin() const;
+		vector<Literal>::const_iterator cend() const;
+	
 	private:
 		vector<Literal> literals;
 	};

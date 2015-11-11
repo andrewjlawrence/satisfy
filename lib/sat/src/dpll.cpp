@@ -19,10 +19,22 @@ using std::shared_ptr;
 
 namespace 
 {
-	// Hack! For now we just select the first unassigned variable
+	// Hack/Naive Implementation! For now we just select the first unassigned variable
 	SAT::variable select(shared_ptr<SAT::CNF>& formula, SAT::Model& model)
 	{
 		SAT::variable v(0);
+		for (auto itr = formula->cbegin();
+		     itr != formula->cend() && v == 0;
+			 itr ++)
+		{
+			for (auto itr2 = itr->cbegin();
+				 itr2 != itr->cend() && v == 0;
+				 itr2++)
+			{
+				if (itr2->isUnassigned())
+					v = itr2->getVariable();
+			}
+		}
 
 		return v;
 	}
@@ -40,7 +52,7 @@ namespace SAT
 
 	}
 
-	void DPLL::backtrack(Model& model)
+	bool DPLL::backtrack(Model& model)
 	{
 		for (auto itr = model.rbegin();
 			 itr != model.rend();
@@ -52,13 +64,14 @@ namespace SAT
 			}
 			else
 			{
-				model.erase((itr + 1).base());
+				model.erase((itr).base());
 				if (model.empty())
 				{
-					
+					return false;
 				}
 			}
 		}
+		return true;
 	}
 
 	bool DPLL::solve(shared_ptr<CNF>& formula)
@@ -86,7 +99,10 @@ namespace SAT
 				// We have found a conflict so backtrack.
 				if (formula->hasConflict())
 				{
-					backtrack(valuation);
+					if (!backtrack(valuation))
+					{
+						return false;
+					}
 				}
 			}
 		}

@@ -6,38 +6,48 @@
 
 namespace SAT
 {
-	Literal::Literal(int variable, Polarity pol)
-		:var(variable), pol(pol)
+	Literal::Literal(variable variableNumber, bool isPos, Assignment pol)
+		:var(variableNumber), polarity(isPos), assignment(pol)
 	{}
 
-	void Literal::assign_pos()
+	void Literal::assign_true()
 	{
-		pol = Polarity::Pos;
+		assignment = Assignment::True;
 	}
 
-	void Literal::assign_neg()
+	void Literal::assign_false()
 	{
-		pol = Polarity::Neg;
+		assignment = Assignment::False;
 	}
 
 	void Literal::unassign()
 	{
-		pol = Polarity::Unassigned;
+		assignment = Assignment::Unassigned;
 	}
 
-	bool Literal::isAssignedPos()
+	bool Literal::isUnassigned() const
 	{
-		return pol == Literal::Polarity::Pos;
+		return assignment == Assignment::Unassigned;
 	}
 
-	bool Literal::isAssignedNeg()
+	bool Literal::isAssignedTrue() const
 	{
-		return false;
+		return assignment == Assignment::True;
 	}
 
-	int Literal::getVariable()
+	bool Literal::isAssignedFalse() const
+	{
+		return assignment == Assignment::False;
+	}
+
+	variable Literal::getVariable() const
 	{
 		return var;
 	}
+
+	bool Literal::getPolarity() const
+	{
+		return polarity;
+	}
 }
- // End namespace parsing
+ // End namespace SAT

@@ -5,7 +5,11 @@
 #include "boost/program_options.hpp" 
 
 #include <iostream> 
-#include <string> 
+#include <string>
+#include <memory>
+#include <parser.h>
+#include <cnf.h>
+#include <dpll.h>
 
 namespace
 {
@@ -15,7 +19,8 @@ namespace
 
 } // namespace 
 
-
+// Using declarations
+using std::string;
 
 int main(int argc, char* argv[])
 {
@@ -39,18 +44,23 @@ int main(int argc, char* argv[])
 					 */
 			if (vm.count("help"))
 			{
-				std::cout << "Basic Command Line Parameter App" << std::endl
+				std::cout << "Satisfy SAT solver" << std::endl
 					<< desc << std::endl;
 				return SUCCESS;
 			}
 			
 			auto itr = vm.find("f");
 
-			if (itr != vm.end())
+			if (itr == vm.end())
 			{
-
+				throw string("Error No file name");
 			}
 	
+			parsing::DimacsParser parser(itr->second.value);
+			std::shared_ptr<SAT::CNF> formulaptr;
+			parser.load(formulaptr);
+			SAT::DPLL solver;
+			solver.solve(formulaptr);
 
 			po::notify(vm); // throws on error, so do after help in case 
 							// there are any problems 
@@ -58,6 +68,12 @@ int main(int argc, char* argv[])
 		catch (po::error& e)
 		{
 			std::cerr << "ERROR: " << e.what() << std::endl << std::endl;
+			std::cerr << desc << std::endl;
+			return ERROR_IN_COMMAND_LINE;
+		}
+		catch (string& sErr)
+		{
+			std::cerr << "ERROR: " << sErr << std::endl << std::endl;
 			std::cerr << desc << std::endl;
 			return ERROR_IN_COMMAND_LINE;
 		}

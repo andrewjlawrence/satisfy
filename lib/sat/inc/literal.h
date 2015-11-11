@@ -4,24 +4,29 @@
 #ifndef __LITERAL_H
 #define __LITERAL_H
 
+#include <sat-types.h>
+
 namespace SAT
 {
 	class Literal 
 	{
 	public:
-		enum class Polarity { Pos, Neg, Unassigned };
+		enum class Assignment { True, False, Unassigned };
 
-		Literal(int variable, Polarity pol);
-		void assign_pos();
-		void assign_neg();
+		Literal(variable variableNumber, bool isPos, Assignment pol);
+		void assign_true();
+		void assign_false();
 		void unassign();
-		bool isAssignedPos();
-		bool isAssignedNeg();
-		int getVariable();
+		bool isAssignedTrue() const;
+		bool isUnassigned() const ;
+		bool isAssignedFalse() const;
+		variable getVariable() const;
+		bool getPolarity() const;
 
 	private:
-		int var;
-		Polarity pol;
+		variable var;
+		bool polarity;
+		Assignment assignment;
 	};
 } // End namespace SAT
 #endif // __LITERAL_H

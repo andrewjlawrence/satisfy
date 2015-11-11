@@ -25,14 +25,23 @@ namespace SAT
 	class CNF {
 	public:
 		CNF(uint16_t variableNumber, uint16_t clauseNumber);
+		
 		void addclause(Clause& clause);
+		
+		vector<Clause>::const_iterator cbegin();
+		vector<Clause>::const_iterator cend();
+		/*I dont think we should be passing the formula around*/
 		void getclauses(vector<Clause>& outClauses);
 		uint16_t getVariableNumber();
+		
 		void assignVariableTrue(variable variableNumber);
 		void assignVariableFalse(variable variableNumber);
 		void unassignVariable(variable variableNumber);
+		
 		bool isSatisfied();
 		bool hasConflict();
+
+
 	private:
 		vector<Clause> clauses;
 		vector<variable> unassignedVars;

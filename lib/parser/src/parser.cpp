@@ -10,6 +10,8 @@
 #include <memory>
 #include <clause.h>
 #include <cnf.h>
+#include <stdlib.h>
+
 
 using std::shared_ptr;
 using std::ifstream;
@@ -58,9 +60,8 @@ namespace parsing
 							while (literal != 0)
 							{
 								streamline >> literal;
-							
 								if (formula)
-									clause.addliteral(Literal(literal, Literal::Polarity::Unassigned));
+									clause.addliteral(Literal(abs(literal), 0 < literal, Literal::Assignment::Unassigned));
 							}
 
 							formula->addclause(clause);
