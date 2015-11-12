@@ -17,7 +17,7 @@ namespace SAT
 	// Alias defintions 
 	using variable = uint16_t;
 	using Assignment = std::pair<variable, bool>;
-	using Model = std::map<variable, bool>; //!< We define a model to be a map from variables to booleans
+	using Model = std::vector<Assignment>; //!< We define a model to be a map from variables to booleans
 
 } // end namespace SAT
 #endif // End __SAT_TYPES_H

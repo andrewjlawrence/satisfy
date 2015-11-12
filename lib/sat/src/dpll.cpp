@@ -49,7 +49,14 @@ namespace SAT
 
 	void DPLL::unitresolution(shared_ptr<CNF>& formula, Model& model)
 	{
+		/* We will only resolve with the most recently added literal and all subsequent*/
+		Assignment lastDecision(model.back());
+		if (lastDecision.second)
+			formula->assignVariableTrue(lastDecision.first);
+		else
+			formula->assignVariableFalse(lastDecision.first);
 
+		// Todo find the unit clauses, add them to the valuation and resolve further
 	}
 
 	bool DPLL::backtrack(Model& model)
@@ -61,6 +68,7 @@ namespace SAT
 			if (itr->second)
 			{
 				itr->second = false;
+				break;
 			}
 			else
 			{
@@ -85,7 +93,7 @@ namespace SAT
 			{
 				// Add the variable to the valuation as a positive literal
 				// Backtracking will flip to negative literals if possible
-				valuation.insert(Assignment(v, true));
+				valuation.push_back(Assignment(v, true));
 				
 				// Perform unit resolution
 				unitresolution(formula, valuation);

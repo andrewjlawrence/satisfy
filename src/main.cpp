@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
 				throw string("Error No file name");
 			}
 	
-			parsing::DimacsParser parser(itr->second.value);
+			parsing::DimacsParser parser(itr->second.as<std::string>());
 			std::shared_ptr<SAT::CNF> formulaptr;
 			parser.load(formulaptr);
 			SAT::DPLL solver;

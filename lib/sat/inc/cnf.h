@@ -21,7 +21,7 @@ using std::vector;
 
 namespace SAT
 {
-	//! Class for conjunctive normal form
+	//! Class for conjunctive normal form (CNF) formulas
 	class CNF {
 	public:
 		CNF(uint16_t variableNumber, uint16_t clauseNumber);
