@@ -4,7 +4,7 @@ This document is concerned with a class of algorithms called satisfiability or S
 These algorithms solve the boolean satisfaction problem for propositional logic. 
 \textbf{Copy stuff from these chapter here and rework as needed.}
 
-\begin{lstlisting}[caption = Example Recursive DPLL Algorithm,mathescape, label = cl:dpllalg]
+\begin{lstlisting}[caption = Example Recursive DPLL Algorithm,mathescape, label = cl:dpllrecalg]
 DPLL($\Delta, \Gamma$)
 $(\Delta, \Gamma) := \mathrm{UnitResolution}(\Delta, \Gamma)$
 if $\Delta = \emptyset$ then
@@ -21,7 +21,7 @@ else
         return UNSAT
 \end{lstlisting}
 
-\begin{lstlisting}[caption = Example Recursive DPLL Algorithm,mathescape, label = cl:dpllalg]
+\begin{lstlisting}[caption = Example Iterative DPLL Algorithm,mathescape, label = cl:dplliteralg]
 DPLL($\Delta, \Gamma$)
 while ($l := \mathrm{Select}(\Delta, \Gamma))$) {
 $(\Delta, \Gamma) := \mathrm{UnitResolution}(\Delta, \Gamma)$
