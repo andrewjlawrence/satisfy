@@ -59,7 +59,7 @@ namespace SAT
 		// Todo find the unit clauses, add them to the valuation and resolve further
 	}
 
-	bool DPLL::backtrack(Model& model)
+	bool DPLL::backtrack(shared_ptr<CNF>& formula, Model& model)
 	{
 		for (auto itr = model.rbegin();
 			 itr != model.rend();
@@ -68,11 +68,13 @@ namespace SAT
 			if (itr->second)
 			{
 				itr->second = false;
+				formula->assignVariableFalse(itr->first);
 				break;
 			}
 			else
 			{
 				model.erase((itr).base());
+				formula->unassignVariable(itr->first);
 				if (model.empty())
 				{
 					return false;
@@ -82,7 +84,7 @@ namespace SAT
 		return true;
 	}
 
-	bool DPLL::solve(shared_ptr<CNF>& formula)
+	bool DPLL::solve(shared_ptr<CNF>& formula, shared_ptr<Model>& SatisfyingAssignment)
 	{
 		if (formula)
 		{
@@ -101,15 +103,21 @@ namespace SAT
 				// Check if the formula has been satisfied
 				if (formula->isSatisfied())
 				{
+					SatisfyingAssignment = std::make_shared<Model>(valuation);
 					return true;
 				}
 
 				// We have found a conflict so backtrack.
 				if (formula->hasConflict())
 				{
-					if (!backtrack(valuation))
+					if (!backtrack(formula, valuation))
 					{
 						return false;
+					}
+					if (formula->isSatisfied())
+					{
+						SatisfyingAssignment = std::make_shared<Model>(valuation);
+						return true;
 					}
 				}
 			}

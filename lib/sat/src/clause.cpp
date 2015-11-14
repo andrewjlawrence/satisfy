@@ -23,19 +23,22 @@ namespace SAT
 		// We make the assumption that the clause is not trivially satisfiable i.e.
 		// it contains the literals ¬x and x
 		auto itr = find_if(literals.begin(), literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber;});
-		(itr->getPolarity()) ? itr->assign_true() : itr->assign_false();
+		if (itr != literals.end())
+			(itr->getPolarity()) ? itr->assign_true() : itr->assign_false();
 	}
 
 	void Clause::unassignVariable(variable variableNumber)
 	{
 		auto itr = find_if(literals.begin(), literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber;});
-		(itr->getPolarity()) ? itr->assign_true() : itr->assign_false();
+		if (itr != literals.end())
+			itr->unassign();
 	}
 
 	void Clause::assignVariableFalse(variable variableNumber)
 	{
 		auto itr = find_if(literals.begin(), literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber;});
-		(itr->getPolarity()) ? itr->assign_true() : itr->assign_false();
+		if (itr != literals.end())
+			(!itr->getPolarity()) ? itr->assign_true() : itr->assign_false();
 	}
 
 	bool Clause::isSatisfied()

@@ -54,13 +54,13 @@ namespace parsing
 						// The first non comment line should be the header
 						if (headerRead)
 						{
-							int literal(1);
+							uint16_t literal(1);
 							Clause clause;
 
 							while (literal != 0)
 							{
 								streamline >> literal;
-								if (formula)
+								if (formula && literal != 0)
 									clause.addliteral(Literal(abs(literal), 0 < literal, Literal::Assignment::Unassigned));
 							}
 
@@ -92,9 +92,8 @@ namespace parsing
 						}
 					}
 				}
+				Success = true;
 			}
-
-			Success = true;
 		}
 		catch (const string& /*error*/)
 		{

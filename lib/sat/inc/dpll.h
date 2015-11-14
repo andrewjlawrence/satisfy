@@ -23,8 +23,8 @@ namespace SAT
 	public:
 		DPLL();
 		void unitresolution(shared_ptr<CNF>& formula, Model& model);
-		bool backtrack(Model& model);
-		bool solve(shared_ptr<CNF>& formula);
+		bool backtrack(shared_ptr<CNF>& formula, Model& model);
+		bool solve(shared_ptr<CNF>& formula, shared_ptr<Model>& valuation);
 	private:
 		string path;
 	};
