@@ -76,7 +76,8 @@ int main(int argc, char* argv[])
 			{
 				throw string("Error No file name");
 			}
-			string path("./benchmarks/aim-50-1_6-yes1-4.cnf");
+			//string path("./benchmarks/aim-50-1_6-yes1-4.cnf");
+			string path("./benchmarks/test.cnf");
 			parsing::DimacsParser parser(path);
 			shared_ptr<SAT::CNF> formulaptr(0);
 			shared_ptr<SAT::Model> modelptr(0);

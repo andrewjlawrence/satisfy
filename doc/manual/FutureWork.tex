@@ -1,0 +1,45 @@
+\manualchapter{Future Work}{Future Work}
+\chaptermark{Future Work}
+The following section describes work planned.
+
+\section{Work plan}
+
+\subsection{Prototype SAT solver}
+The current plan is to write a naive SAT solver implementation that can perform basic clause learning. This can then be rewritten with clearer structure and modern state of the art optimizations.
+The following are things that need to be achieved in the prototype.
+\begin{enumerate}
+\item Unit resolution using unit clauses.
+\item Pure literal elimination.
+\item Basic conflict analysis and clause learning
+\item (Optional) two watched literal data structures
+\end{enumerate}
+
+\subsection{Industrial Strength CDCL SAT solver}
+Restructure the prototype to include the following
+
+\begin{enumerate}
+\item Preprocessing. Follow the work of MiniSAT and SATELite
+\item Heuristics. It would be nice to be able to plug in a variety of heuristics.
+\item Efficient conflict analysis. I remember that conflict analysis can be optimized using some form of lookup table. We probably want a decent learning scheme like 1st UIP or whatever the state of the art is.
+\item Proof trace. We want to be able to generate a proof trace from our solver. We could have different builds of the solver one of which is optimized i.e. it generates no trace and another with trace generation.
+\item Incremental SAT solving. We want the ability to incrementally add clauses to the solver while it runs.
+\item Restarts. The solver should be capable of restarting the proof search with its newly learned clauses. The heuristics will hopefully then guide the solver down a better path towards a solution.
+\end{enumerate}
+
+\subsection{Parallelized SAT solving}
+The work here will involve parallelizing the above CDCL SAT in a style similar to Many-SAT. This will hopefully result in a fast powerful solver.
+\begin{enumerate}
+\item Data structures. We need a data structure that can share the learned clauses between solvers on the fly.
+\item Multi-threading. How do we parameterize our bank of SAT solvers? What algorithms work well together? 
+\item Heuristics.
+\end{enumerate}
+
+\subsection{SMT Solver}
+This will be hard. I haven't really thought about it.
+
+\subsection{C++ Model Checker/ Theorem Prover}
+Blue sky thinking.
+
+\subsection{Model Based Testing for C++}
+Blue sky thinking. Use our C++ model to automatically generate unit tests and validate the model.
+

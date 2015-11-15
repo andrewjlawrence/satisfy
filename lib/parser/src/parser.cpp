@@ -54,7 +54,8 @@ namespace parsing
 						// The first non comment line should be the header
 						if (headerRead)
 						{
-							uint16_t literal(1);
+							// We are going to be parsing negative values.
+							int literal(1);
 							Clause clause;
 
 							while (literal != 0)

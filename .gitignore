@@ -52,3 +52,4 @@ doc/manual/Main.synctex.gz
 *.toc
 solver.vcxproj.user
 *.opensdf
+*.mtc3

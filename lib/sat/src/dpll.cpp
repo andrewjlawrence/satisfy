@@ -59,22 +59,30 @@ namespace SAT
 		// Todo find the unit clauses, add them to the valuation and resolve further
 	}
 
+	/* Currently backtracking assumes that the variable has been set to true first. 
+	   We will want to allow variable assignments to occur in either order. */
 	bool DPLL::backtrack(shared_ptr<CNF>& formula, Model& model)
 	{
-		for (auto itr = model.rbegin();
-			 itr != model.rend();
-			 itr++)
+
+		int i(model.size() - 1);
+		while (0 <= i)
 		{
-			if (itr->second)
+			Assignment& currentAssignment(model.at(i));
+			if (currentAssignment.second)
 			{
-				itr->second = false;
-				formula->assignVariableFalse(itr->first);
+				// We are back tracking and have a true assignment. Flip to false
+				currentAssignment.second = false;
+				formula->assignVariableFalse(currentAssignment.first);
 				break;
+				i--;
 			}
 			else
 			{
-				model.erase((itr).base());
-				formula->unassignVariable(itr->first);
+				formula->unassignVariable(currentAssignment.first);
+				// Resize the model to delete the last element.
+				model.resize(i);
+				i--;
+
 				if (model.empty())
 				{
 					return false;
@@ -108,7 +116,7 @@ namespace SAT
 				}
 
 				// We have found a conflict so backtrack.
-				if (formula->hasConflict())
+				while(formula->hasConflict())
 				{
 					if (!backtrack(formula, valuation))
 					{
