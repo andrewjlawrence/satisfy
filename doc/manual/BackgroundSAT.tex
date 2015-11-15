@@ -1,7 +1,10 @@
 \manualchapter{An Overview of DPLL SAT Solvers: The State of The Art}{An Overview of DPLL SAT Solvers: The State of The Art}
 \chaptermark{An Overview of DPLL SAT Solvers}
-This document is concerned with a class of algorithms called satisfiability or SAT solvers.
-These algorithms solve the boolean satisfaction problem for propositional logic. 
+This document is concerned with a class of decision procedures for propositional logic called satisfiability or SAT solvers. These algorithms produce either an assignment in the case that the formula is satisfiable or a resolution proof of unsatisfiablity. These algorithms operate on formulae in conjunctive normal form (CNF) i.e. they of the form $C_1 \wedge, \ldots \wedge, C_n$  (a conjunction of clauses which are themselves disjunctions of literals).
+These algorithms solve the boolean satisfaction problem for propositional logic.
+
+  $x_1 \vee \neg x_2 \wedge \neg x_1 \vee x_2 \vee \neg x_3 \wedge  \neg x_2 \vee x_3$
+
 \textbf{Copy stuff from these chapter here and rework as needed.}
 
 \begin{lstlisting}[caption = Example Recursive DPLL Algorithm,mathescape, label = cl:dpllrecalg]
