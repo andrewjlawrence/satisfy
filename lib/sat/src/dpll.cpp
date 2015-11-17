@@ -4,11 +4,11 @@
 
 // STL includes
 #include <memory>
-#include <clause.h>
 #include <map>
 #include <vector>
 
 // Project includes
+#include <clause.h>
 #include <cnf.h>
 #include <dpll.h>
 

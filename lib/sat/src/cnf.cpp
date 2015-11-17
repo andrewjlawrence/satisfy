@@ -51,7 +51,7 @@ namespace SAT
 
 	void CNF::assignVariableFalse(variable variableNumber)
 	{
-		for_each(clauses.begin(), clauses.end(), bind(&Clause::assignVariableTrue, _1, variableNumber));
+		for_each(clauses.begin(), clauses.end(), bind(&Clause::assignVariableFalse, _1, variableNumber));
 	}
 
 	void CNF::unassignVariable(variable variableNumber)
