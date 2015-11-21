@@ -61,16 +61,15 @@ int main(int argc, char* argv[])
 		po::options_description desc("Options");
 		desc.add_options()
 			("help", "Print help messages")
-			("f", "The dimacs file name");
+			("input-file,f", po::value<string>(), "input file")
+			;
 
 		po::variables_map vm;
 		try
 		{
-			po::store(po::parse_command_line(argc, argv, desc),
-				vm); // can throw 
-
-					 /** --help option
-					 */
+			po::store(po::parse_command_line(argc, argv, desc), vm); // can throw 
+			notify(vm);
+			// Display help if it was asked for.
 			if (vm.count("help"))
 			{
 				std::cout << "Satisfy SAT solver" << std::endl
@@ -78,14 +77,11 @@ int main(int argc, char* argv[])
 				return SUCCESS;
 			}
 			
-			if (!vm.count("f"))
+			if (!vm.count("input-file"))
 			{
 				throw string("Error No file name");
 			}
-			//string path("./benchmarks/AIM-3SAT-MIXED/aim-100-1_6-yes1-4.cnf");
-			string path(vm["f"].as<string>());
-			//string path("./benchmarks/PHOLE-UNSAT/hole6.cnf");
-			//string path("./benchmarks/quinn.cnf");
+			string path(vm["input-file"].as<string>());
 			parsing::DimacsParser parser(path);
 			shared_ptr<SAT::CNF> formulaptr(0);
 			shared_ptr<SAT::Model> modelptr(0);
