@@ -4,6 +4,9 @@
 
 #include <literal.h>
 
+// Using SAT Types
+using SAT::Type::variable;
+
 namespace SAT
 {
 	Literal::Literal(variable variableNumber, bool isPos, Assignment pol)

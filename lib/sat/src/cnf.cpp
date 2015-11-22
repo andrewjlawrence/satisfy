@@ -5,11 +5,15 @@
 #include <cnf.h>
 #include <algorithm>
 
+// Using STL
 using std::all_of;
 using std::for_each;
 using std::placeholders::_1;
 using std::find_if;
 using std::bind;
+
+// Using SAT Types
+using SAT::Type::variable;
 
 namespace SAT
 {
@@ -57,11 +61,6 @@ namespace SAT
 	void CNF::unassignVariable(variable variableNumber)
 	{
 		for_each(clauses.begin(), clauses.end(), bind(&Clause::unassignVariable, _1, variableNumber));
-	}
-
-	bool CNF::isSatisfied()
-	{
-		return all_of(clauses.begin(), clauses.end(), bind(&Clause::isSatisfied, _1));
 	}
 
 	bool CNF::hasConflict()

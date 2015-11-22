@@ -9,22 +9,24 @@
 #include <map>
 #include <vector>
 #include <sat-types.h>
+#include <decision.h>
 
-// Using declarations
+// Using STL
 using std::shared_ptr;
 using std::string;
 
 namespace SAT
 {
-	// Forward declaration
+	// Forward declarations
 	class CNF;
 
 	class DPLL {
 	public:
 		DPLL();
-		void unitresolution(shared_ptr<CNF>& formula, Model& model);
-		bool backtrack(shared_ptr<CNF>& formula, Model& model);
-		bool solve(shared_ptr<CNF>& formula, shared_ptr<Model>& valuation);
+		void bcp(shared_ptr<CNF>& formula, DecisionStack& model);
+		bool resolveConflict(shared_ptr<CNF>& formula, DecisionStack& model);
+		bool decide(shared_ptr<CNF>& formula, DecisionStack& model);
+		bool solve(shared_ptr<CNF>& formula, shared_ptr<SAT::Type::Model>& valuation);
 	private:
 		string path;
 	};

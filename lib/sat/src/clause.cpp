@@ -2,14 +2,21 @@
  * Copyright 2015 Andrew Lawrence
  */
 
-#include <clause.h>
+// STL includes
 #include <algorithm>
 #include <functional>
 
+// Project includes
+#include <clause.h>
+
+// Using STL
 using std::all_of;
 using std::find_if;
 using std::bind;
 using std::placeholders::_1;
+
+// Using SAT Types
+using SAT::Type::variable;
 
 namespace SAT
 {
@@ -41,10 +48,6 @@ namespace SAT
 			(!itr->getPolarity()) ? itr->assign_true() : itr->assign_false();
 	}
 
-	bool Clause::isSatisfied()
-	{
-		return find_if(literals.begin(), literals.end(), bind(&Literal::isAssignedTrue, _1)) != literals.end();
-	}
 	bool Clause::isConflict()
 	{
 		return all_of(literals.begin(), literals.end(), bind(&Literal::isAssignedFalse, _1));

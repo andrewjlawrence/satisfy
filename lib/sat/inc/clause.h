@@ -8,6 +8,7 @@
 #include <literal.h>
 #include <sat-types.h>
 
+// Using STL
 using std::vector;
 
 namespace SAT
@@ -15,10 +16,9 @@ namespace SAT
 	class Clause {
 	public:
 		void addliteral(Literal& literal);
-		void assignVariableTrue(variable variableNumber);
-		void unassignVariable(variable variableNumber);
-		void assignVariableFalse(variable variableNumber);
-		bool isSatisfied();
+		void assignVariableTrue(Type::variable variableNumber);
+		void unassignVariable(Type::variable variableNumber);
+		void assignVariableFalse(Type::variable variableNumber);
 		bool isConflict();
 		vector<Literal>::const_iterator cbegin() const;
 		vector<Literal>::const_iterator cend() const;

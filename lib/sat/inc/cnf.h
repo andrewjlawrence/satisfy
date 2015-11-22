@@ -14,7 +14,7 @@
 #include <sat-types.h>
 #include <clause.h>
 
-//Using declarations
+// Using STL 
 using std::all_of;
 using std::istream;
 using std::vector;
@@ -34,17 +34,15 @@ namespace SAT
 		void getclauses(vector<Clause>& outClauses);
 		uint16_t getVariableNumber();
 		
-		void assignVariableTrue(variable variableNumber);
-		void assignVariableFalse(variable variableNumber);
-		void unassignVariable(variable variableNumber);
+		void assignVariableTrue(Type::variable variableNumber);
+		void assignVariableFalse(Type::variable variableNumber);
+		void unassignVariable(Type::variable variableNumber);
 		
-		bool isSatisfied();
 		bool hasConflict();
-
 
 	private:
 		vector<Clause> clauses;
-		vector<variable> unassignedVars;
+		vector<Type::variable> unassignedVars;
 		uint16_t clauseNumber; // This is going to be the maximum number of clauses
 		uint16_t variableNumber; // This likely to be the maximum number of literals in a clause;
 	};

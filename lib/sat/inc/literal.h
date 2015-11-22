@@ -13,18 +13,18 @@ namespace SAT
 	public:
 		enum class Assignment { True, False, Unassigned };
 
-		Literal(variable variableNumber, bool isPos, Assignment pol);
+		Literal(Type::variable variableNumber, bool isPos, Assignment pol);
 		void assign_true();
 		void assign_false();
 		void unassign();
 		bool isAssignedTrue() const;
 		bool isUnassigned() const ;
 		bool isAssignedFalse() const;
-		variable getVariable() const;
+		Type::variable getVariable() const;
 		bool getPolarity() const;
 
 	private:
-		variable var;
+		Type::variable var;
 		bool polarity;
 		Assignment assignment;
 	};

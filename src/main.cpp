@@ -29,9 +29,9 @@ namespace
 	const size_t SUCCESS = 0;
 	const size_t ERROR_UNHANDLED_EXCEPTION = 2;
 
-	string outputModel(shared_ptr<SAT::Model>& model)
+	string outputModel(shared_ptr<SAT::Type::Model>& model)
 	{
-		sort(model->begin(), model->end(), [](SAT::Assignment& a, SAT::Assignment& b) {return a.first < b.first;});
+		sort(model->begin(), model->end(), [](SAT::Type::Assignment& a, SAT::Type::Assignment& b) {return a.first < b.first;});
 		std::ostringstream outmodel;
 		if (model)
 		{
@@ -84,7 +84,7 @@ int main(int argc, char* argv[])
 			string path(vm["input-file"].as<string>());
 			parsing::DimacsParser parser(path);
 			shared_ptr<SAT::CNF> formulaptr(0);
-			shared_ptr<SAT::Model> modelptr(0);
+			shared_ptr<SAT::Type::Model> modelptr(0);
 			parser.load(formulaptr);
 			SAT::DPLL solver;
 			if (solver.solve(formulaptr, modelptr))
