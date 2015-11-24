@@ -13,8 +13,8 @@ namespace SAT
 	{
 		// Alias defintions 
 		using variable = uint16_t;
-		using VarAssignment = std::pair<variable, bool>;
-		using Model = std::vector<VarAssignment>;
+		using Assignment = std::pair<variable, bool>;
+		using Model = std::vector<Assignment>;
 	}
 } // end namespace SAT
 #endif // End __SAT_TYPES_H

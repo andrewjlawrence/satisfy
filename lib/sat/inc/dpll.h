@@ -24,8 +24,9 @@ namespace SAT
 	public:
 		DPLL();
 		void bcp(shared_ptr<CNF>& formula, DecisionStack& model);
+		Type::variable decide(shared_ptr<CNF>& formula, DecisionStack& model);
 		bool resolveConflict(shared_ptr<CNF>& formula, DecisionStack& model);
-		bool decide(shared_ptr<CNF>& formula, DecisionStack& model);
+
 		bool solve(shared_ptr<CNF>& formula, shared_ptr<SAT::Type::Model>& valuation);
 	private:
 		string path;

@@ -10,8 +10,8 @@ using SAT::Type::Model;
 
 namespace SAT
 {
-	Decision::Decision(Assignment& decision)
-		: decision(decision), flipped(false)
+	Decision::Decision(Assignment& assignment)
+		: assignment(assignment), flipped(false)
 	{
 
 	}
@@ -20,7 +20,7 @@ namespace SAT
 	{
 		if (!flipped)
 		{
-			decision.second = !decision.second;
+			assignment.second = !assignment.second;
 			flipped = true;
 			return true;
 		}
@@ -30,17 +30,30 @@ namespace SAT
 
 	variable Decision::getVariable()
 	{
-		return decision.first;
+		return assignment.first;
 	}
 
 	bool Decision::getAssignment()
 	{
-		return decision.second;
+		return assignment.second;
+	}
+
+	Type::Assignment Decision::getVarAssignment()
+	{
+		return assignment;
 	}
 
 	Model Decision::toModel(std::stack<Decision>& decisionStack)
 	{
-		return Model();
+		Model model;
+		
+		while (!decisionStack.empty())
+		{
+			model.push_back(decisionStack.top().getVarAssignment());
+			decisionStack.pop();
+		}
+
+		return model;
 	}
 }
  // End namespace SAT

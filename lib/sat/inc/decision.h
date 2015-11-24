@@ -19,10 +19,11 @@ namespace SAT
 		bool flip();
 		Type::variable getVariable();
 		bool getAssignment();
+		Type::Assignment getVarAssignment();
 		static Type::Model toModel(std::stack<Decision>& decisionStack);
 
 	private:
-		Type::Assignment decision;
+		Type::Assignment assignment;
 		//! When the variable has been set the second time this flag is set.
 		bool flipped; 
 		//! This flag is set when the decision has been propagated.

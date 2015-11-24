@@ -25,7 +25,7 @@ using SAT::Type::Model;
 namespace 
 {
 	// Hack/Naive Implementation! For now we just select the first unassigned variable
-	variable select(shared_ptr<SAT::CNF>& formula, Model& model)
+	variable select(shared_ptr<SAT::CNF>& formula, SAT::DecisionStack& model)
 	{
 		variable v(0);
 		for (auto itr = formula->cbegin();
@@ -58,11 +58,14 @@ namespace SAT
 	void DPLL::bcp(shared_ptr<CNF>& formula, DecisionStack& model)
 	{
 		/* We will only resolve with the most recently added literal and all subsequent*/
-		Decision lastDecision(model.top());
-		if (lastDecision.getAssignment())
-			formula->assignVariableTrue(lastDecision.getVariable());
-		else
-			formula->assignVariableFalse(lastDecision.getVariable());
+		if (!model.empty())
+		{
+			Decision lastDecision(model.top());
+			if (lastDecision.getAssignment())
+				formula->assignVariableTrue(lastDecision.getVariable());
+			else
+				formula->assignVariableFalse(lastDecision.getVariable());
+		}
 
 		// Todo find the unit clauses, add them to the valuation and resolve further
 	}
@@ -87,9 +90,11 @@ namespace SAT
 		return false;
 	}
 
-	bool DPLL::decide(shared_ptr<CNF>& formula, DecisionStack& model)
+	variable DPLL::decide(shared_ptr<CNF>& formula, DecisionStack& model)
 	{
-		return false;
+		variable var(select(formula, model));
+		model.push(Decision(Type::Assignment(var, true)));
+		return var;
 	}
 
 	bool DPLL::solve(shared_ptr<CNF>& formula, shared_ptr<Model>& SatisfyingAssignment)
