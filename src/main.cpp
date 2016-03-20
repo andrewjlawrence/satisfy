@@ -85,22 +85,30 @@ int main(int argc, char* argv[])
 			parsing::DimacsParser parser(path);
 			shared_ptr<SAT::CNF> formulaptr(0);
 			shared_ptr<SAT::Type::Model> modelptr(0);
-			parser.load(formulaptr);
-			SAT::DPLL solver;
-			if (solver.solve(formulaptr, modelptr))
+
+			// Attempt to load the formula.
+			if (parser.load(formulaptr))
 			{
-				// The formula is satisfiable
-				std::cout << "Yes" << std::endl;
-				if (modelptr)
+				SAT::DPLL solver;
+				if (solver.solve(formulaptr, modelptr))
 				{
-					std::cout << "Satisfying Assignment: " << std::endl
-						<< outputModel(modelptr);
+					// The formula is satisfiable
+					std::cout << "Yes" << std::endl;
+					if (modelptr)
+					{
+						std::cout << "Satisfying Assignment: " << std::endl
+							<< outputModel(modelptr);
+					}
+				}
+				else
+				{
+					// The formula is unsatisfiable
+					std::cout << "No" << std::endl;
 				}
 			}
 			else
 			{
-				// The formula is unsatisfiable
-				std::cout << "No" << std::endl;
+				std::cout << "Unable to load dimacs" << std::endl;
 			}
 
 			po::notify(vm); // throws on error, so do after help in case 

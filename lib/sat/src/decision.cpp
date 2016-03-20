@@ -10,50 +10,78 @@ using SAT::Type::Model;
 
 namespace SAT
 {
-	Decision::Decision(Assignment& assignment)
-		: assignment(assignment), flipped(false)
-	{
-
-	}
-
-	bool Decision::flip()
-	{
-		if (!flipped)
-		{
-			assignment.second = !assignment.second;
-			flipped = true;
-			return true;
-		}
-		else
-			return false;
-	}
-
-	variable Decision::getVariable()
-	{
-		return assignment.first;
-	}
-
-	bool Decision::getAssignment()
-	{
-		return assignment.second;
-	}
-
-	Type::Assignment Decision::getVarAssignment()
-	{
-		return assignment;
-	}
-
-	Model Decision::toModel(std::stack<Decision>& decisionStack)
-	{
-		Model model;
-		
-		while (!decisionStack.empty())
-		{
-			model.push_back(decisionStack.top().getVarAssignment());
-			decisionStack.pop();
-		}
-
-		return model;
-	}
+Decision::Decision(Assignment& assignment, bool isBranch)
+	: assignment(assignment), flipped(false), branch(isBranch)
+{
 }
- // End namespace SAT
+
+/*
+ * Flip the assignment of a decision
+ */
+bool Decision::flip(void)
+{
+	if (!flipped && branch)
+	{
+		assignment.second = !assignment.second;
+		flipped = true;
+		return true;
+	}
+	else
+		return false;
+}
+
+/*
+ * Accessor for the variable.
+ */
+variable Decision::getVariable(void)
+{
+	return assignment.first;
+}
+
+/*
+ * Accessor for the assignment.
+ */
+bool Decision::getAssignment(void)
+{
+	return assignment.second;
+}
+
+/*
+ * Check whether a decision has been propagated.
+ */
+bool Decision::isPropagated(void)
+{
+	return propagated;
+}
+
+/*
+ * Check whether a decision is a branch.
+ */
+bool Decision::isBranch(void)
+{
+	return branch;
+}
+
+/*
+ * Accessor for the assignment.
+ */
+Type::Assignment Decision::getVarAssignment(void)
+{
+	return assignment;
+}
+
+/*
+ * Convert a decision stack to a model.
+ */
+Model Decision::toModel(std::stack<Decision>& decisionStack)
+{
+	Model model;
+	while (!decisionStack.empty())
+	{
+		model.push_back(decisionStack.top().getVarAssignment());
+		decisionStack.pop();
+	}
+
+	return model;
+}
+} // End namespace SAT

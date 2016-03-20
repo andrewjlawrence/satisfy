@@ -17,20 +17,22 @@ using std::string;
 
 namespace SAT
 {
-	// Forward declarations
-	class CNF;
+// Forward declarations
+class CNF;
 
-	class DPLL {
-	public:
-		DPLL();
-		void bcp(shared_ptr<CNF>& formula, DecisionStack& model);
-		Type::variable decide(shared_ptr<CNF>& formula, DecisionStack& model);
-		bool resolveConflict(shared_ptr<CNF>& formula, DecisionStack& model);
-
-		bool solve(shared_ptr<CNF>& formula, shared_ptr<SAT::Type::Model>& valuation);
-	private:
-		string path;
-	};
-
+class DPLL {
+public:
+	DPLL(void);
+	void bcp(shared_ptr<CNF>& formula, DecisionStack& model);
+	Type::variable decide(shared_ptr<CNF>& formula, DecisionStack& model);
+	bool resolveConflict(shared_ptr<CNF>& formula, DecisionStack& model);
+	/** \brief Solve a CNF formula.
+	 *  \param formula The formula to solve. 
+	 *  \param valuation The resulting model if the formula is satisfiable.
+	 *  \return true on success, false otherwise.   */
+	bool solve(shared_ptr<CNF>& formula, shared_ptr<SAT::Type::Model>& valuation);
+private:
+	string path;
+};
 } // end namespace SAT
 #endif // End __DPLL_H
