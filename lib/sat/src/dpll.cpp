@@ -6,6 +6,8 @@
 #include <memory>
 #include <map>
 #include <vector>
+#include <assert.h>
+
 
 // Project includes
 #include <decision.h>
@@ -93,6 +95,7 @@ bool DPLL::resolveConflict(shared_ptr<CNF>& formula, DecisionStack& model)
 	{
 		if (model.top().flip())
 		{
+			formula->assignVariableFalse(model.top().getVariable());
 			return true;
 		}
 		else
@@ -109,10 +112,17 @@ bool DPLL::resolveConflict(shared_ptr<CNF>& formula, DecisionStack& model)
  */
 variable DPLL::decide(shared_ptr<CNF>& formula, DecisionStack& model)
 {
-	variable var(select(formula, model));
-	if (var != 0)
-		model.push(Decision(Type::Assignment(var, true), true));
-	return var;
+	if (model.empty() || model.top().isPropagated())
+	{
+		variable var(select(formula, model));
+		if (var != 0)
+			model.push(Decision(Type::Assignment(var, true), true));
+		return var;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 /*
@@ -142,6 +152,7 @@ bool DPLL::solve(shared_ptr<CNF>& formula, shared_ptr<Model>& SatisfyingAssignme
 				{
 					return false;
 				}
+				assert(!formula->hasConflict());
 			}
 		}
 	}

@@ -46,7 +46,6 @@ namespace
 
 		return outmodel.str();
 	}
-
 } // End annonymous namespace 
 
 
