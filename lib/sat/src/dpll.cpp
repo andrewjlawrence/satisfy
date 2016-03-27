@@ -6,14 +6,13 @@
 #include <memory>
 #include <map>
 #include <vector>
-#include <assert.h>
-
 
 // Project includes
 #include <decision.h>
 #include <clause.h>
 #include <cnf.h>
 #include <dpll.h>
+#include <utils.h>
 
 // Using STL
 using std::map;
@@ -91,20 +90,19 @@ void DPLL::bcp(shared_ptr<CNF>& formula, DecisionStack& model)
 bool DPLL::resolveConflict(shared_ptr<CNF>& formula, DecisionStack& model)
 {
 	// Backtrack
-	while (!model.empty())
+	while (!model.empty() && !model.top().flip())
 	{
-		if (model.top().flip())
-		{
-			formula->assignVariableFalse(model.top().getVariable());
-			return true;
-		}
-		else
-		{
-			formula->unassignVariable(model.top().getVariable());
-			model.pop();
-		}
+		formula->unassignVariable(model.top().getVariable());
+		model.pop();
 	}
-	return false;
+
+	// If we have done a flip then unassign the variable.
+	if (!model.empty())
+	{
+		formula->unassignVariable(model.top().getVariable());
+	}
+
+	return !model.empty();
 }
 
 /*
@@ -152,7 +150,7 @@ bool DPLL::solve(shared_ptr<CNF>& formula, shared_ptr<Model>& SatisfyingAssignme
 				{
 					return false;
 				}
-				assert(!formula->hasConflict());
+				SATISFY_ASSERT(!formula->hasConflict());
 			}
 		}
 	}

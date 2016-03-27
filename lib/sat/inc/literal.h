@@ -22,7 +22,8 @@ public:
 	bool isAssignedFalse(void) const;
 	Type::variable getVariable(void) const;
 	bool getPolarity(void) const;
-
+	bool operator==(const Literal& rhs) const;
+	bool operator!=(const Literal& rhs) const;
 private:
 	Type::variable var;
 	bool polarity;

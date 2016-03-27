@@ -1,7 +1,7 @@
 /*
  * Copyright 2015 Andrew Lawrence
  */
-
+#include <utils.h>
 #include <literal.h>
 
 // Using SAT Types
@@ -13,44 +13,57 @@ namespace SAT
 		:var(variableNumber), polarity(isPos), assignment(pol)
 	{}
 
-	void Literal::assign_true()
+	void Literal::assign_true(void)
 	{
+		SATISFY_ASSERT(assignment == Assignment::False || assignment == Assignment::Unassigned);
 		assignment = Assignment::True;
 	}
 
-	void Literal::assign_false()
+	void Literal::assign_false(void)
 	{
+		SATISFY_ASSERT(assignment == Assignment::True || assignment == Assignment::Unassigned);
 		assignment = Assignment::False;
 	}
 
-	void Literal::unassign()
+	void Literal::unassign(void)
 	{
+		SATISFY_ASSERT(assignment == Assignment::True || assignment == Assignment::False);
 		assignment = Assignment::Unassigned;
 	}
 
-	bool Literal::isUnassigned() const
+	bool Literal::isUnassigned(void) const
 	{
 		return assignment == Assignment::Unassigned;
 	}
 
-	bool Literal::isAssignedTrue() const
+	bool Literal::isAssignedTrue(void) const
 	{
 		return assignment == Assignment::True;
 	}
 
-	bool Literal::isAssignedFalse() const
+	bool Literal::isAssignedFalse(void) const
 	{
 		return assignment == Assignment::False;
 	}
 
-	variable Literal::getVariable() const
+	variable Literal::getVariable(void) const
 	{
 		return var;
 	}
 
-	bool Literal::getPolarity() const
+	bool Literal::getPolarity(void) const
 	{
 		return polarity;
 	}
-}
- // End namespace SAT
+
+	bool Literal::operator==(const Literal & rhs) const
+	{
+		return polarity == rhs.polarity &&
+			   assignment == rhs.assignment;
+	}
+
+	bool Literal::operator!=(const Literal & rhs) const
+	{
+		return !(*this == rhs);
+	}
+} // End namespace SAT

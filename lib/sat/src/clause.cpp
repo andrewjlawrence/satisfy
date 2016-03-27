@@ -5,6 +5,7 @@
 // STL includes
 #include <algorithm>
 #include <functional>
+#include <utils.h>
 
 // Project includes
 #include <clause.h>
@@ -58,10 +59,12 @@ void Clause::assignVariableTrue(variable variableNumber)
 			falseLiterals++;
 		}
 		unassignedLiterals--;
+		(literals.size() == unassignedLiterals + falseLiterals + trueLiterals);
 
-		auto itr2 = find_if(itr + 1, literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber;});
+		auto itr2 = find_if(itr+1, literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber;});
 		if (itr2 != literals.end())
 		{
+			SATISFY_ASSERT(*itr != *itr2);
 			if (itr2->getPolarity())
 			{
 				itr2->assign_true();
@@ -73,6 +76,7 @@ void Clause::assignVariableTrue(variable variableNumber)
 				falseLiterals++;
 			}
 			unassignedLiterals--;
+			SATISFY_ASSERT(literals.size() == unassignedLiterals + falseLiterals + trueLiterals);
 		}
 	}
 }
@@ -92,11 +96,13 @@ void Clause::unassignVariable(variable variableNumber)
 			trueLiterals--;
 
 		unassignedLiterals++;
+		SATISFY_ASSERT(literals.size() == unassignedLiterals + falseLiterals + trueLiterals);
 		itr->unassign();
 
-		auto itr2 = find_if(itr + 1, literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber;});
+		auto itr2 = find_if(itr+1, literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber;});
 		if (itr2 != literals.end())
 		{
+			SATISFY_ASSERT(*itr != *itr2);
 			// The variable will have always either been assigned true or false.
 			if (itr2->isAssignedFalse())
 				falseLiterals--;
@@ -104,6 +110,7 @@ void Clause::unassignVariable(variable variableNumber)
 				trueLiterals--;
 
 			unassignedLiterals++;
+			SATISFY_ASSERT(literals.size() == unassignedLiterals + falseLiterals + trueLiterals);
 			itr2->unassign();
 		}
 	}
@@ -129,10 +136,12 @@ void Clause::assignVariableFalse(variable variableNumber)
 		}
 
 		unassignedLiterals--;
+		SATISFY_ASSERT(literals.size() == unassignedLiterals + falseLiterals + trueLiterals);
 
-		auto itr2 = find_if(itr + 1, literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber;});
+		auto itr2 = find_if(itr+1, literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber;});
 		if (itr2 != literals.end())
 		{
+			SATISFY_ASSERT(*itr != *itr2);
 			if (!itr2->getPolarity())
 			{
 				itr2->assign_true();
@@ -144,6 +153,7 @@ void Clause::assignVariableFalse(variable variableNumber)
 				falseLiterals++;
 			}
 			unassignedLiterals--;
+			SATISFY_ASSERT(literals.size() == unassignedLiterals + falseLiterals + trueLiterals);
 		}
 	}
 }
