@@ -8,6 +8,7 @@
 #include <string>
 #include <memory>
 #include <algorithm>
+#include <chrono>
 
 // Boost includes
 #include "boost/program_options.hpp" 
@@ -21,6 +22,7 @@
 using std::string;
 using std::shared_ptr;
 using std::sort;
+using namespace std::chrono;
 
 // Annonymous Namespace
 namespace
@@ -89,8 +91,11 @@ int main(int argc, char* argv[])
 			if (parser.load(formulaptr))
 			{
 				SAT::DPLL solver;
+				high_resolution_clock::time_point t1 = high_resolution_clock::now();
+				high_resolution_clock::time_point t2;
 				if (solver.solve(formulaptr, modelptr))
 				{
+					t2 = high_resolution_clock::now();
 					// The formula is satisfiable
 					std::cout << "Yes" << std::endl;
 					if (modelptr)
@@ -101,9 +106,14 @@ int main(int argc, char* argv[])
 				}
 				else
 				{
+					t2 = high_resolution_clock::now();
 					// The formula is unsatisfiable
 					std::cout << "No" << std::endl;
 				}
+
+				double duration = duration_cast<microseconds>(t2 - t1).count();
+				
+				std::cout << "CPU time in seconds: " << duration / 1000000 << std::endl;
 			}
 			else
 			{
