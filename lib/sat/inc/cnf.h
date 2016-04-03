@@ -34,11 +34,18 @@ public:
 	void addclause(Clause& clause);
 
 	/** \brief Get the const iterator at the beginning of the literal set.*/
-	vector<Clause>::const_iterator cbegin(void);
-	
+	vector<Clause>::const_iterator cbegin(void);	
 	/** \brief Get the const iterator at the end of the literal set.*/
 	vector<Clause>::const_iterator cend(void);
 	
+	/** \brief Get the iterator at the beginning of the literal set.*/
+	vector<Clause>::iterator begin(void);
+	/** \brief Get the iterator at the end of the literal set.*/
+	vector<Clause>::iterator end(void);
+
+	void erase(vector<Clause>::iterator& begin, vector<Clause>::iterator& end);
+
+
 	/*I dont think we should be passing the formula around */
 	void getclauses(vector<Clause>& outClauses);
 	
@@ -56,6 +63,7 @@ public:
 	 *  \return The literal contained in the first discovered unit clause, 
 		        or nullptr if no such clause is found. */
 	Literal* hasUnit(void);
+
 private:
 	vector<Clause> clauses;
 	vector<Type::variable> unassignedVars;

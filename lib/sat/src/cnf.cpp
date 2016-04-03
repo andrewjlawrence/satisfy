@@ -49,6 +49,21 @@ vector<Clause>::const_iterator CNF::cend(void)
 	return clauses.cend();
 }
 
+vector<Clause>::iterator CNF::begin(void)
+{
+	return clauses.begin();
+}
+
+vector<Clause>::iterator CNF::end(void)
+{
+	return clauses.end();
+}
+
+void CNF::erase(vector<Clause>::iterator & begin, vector<Clause>::iterator & end)
+{
+	clauses.erase(begin, end);
+}
+
 /*
  * Get the clauses in the CNF.
  */
@@ -112,4 +127,5 @@ Literal* CNF::hasUnit(void)
 	}
 	return result;
 }
+
 } // End namespace SAT

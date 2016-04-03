@@ -29,6 +29,9 @@ public:
 	vector<Literal>::const_iterator cbegin(void) const;
 	vector<Literal>::const_iterator cend(void) const;
 	
+	vector<Literal>::iterator begin(void);
+	vector<Literal>::iterator end(void);
+
 private:
 	vector<Literal> literals;
 	uint16_t unassignedLiterals;

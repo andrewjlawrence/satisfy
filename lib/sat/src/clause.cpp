@@ -197,4 +197,14 @@ vector<Literal>::const_iterator Clause::cend(void) const
 {
 	return literals.cend();
 }
+
+vector<Literal>::iterator Clause::begin(void)
+{
+	return literals.begin();
+}
+
+vector<Literal>::iterator Clause::end(void)
+{
+	return literals.end();
+}
 }// End namespace SAT
