@@ -70,3 +70,4 @@ lib/parser/inc/literal.h~
 lib/parser/inc/parser.h~
 
 lib/parser/src/CMakeLists.txt~
+lib/sat/sat.vcxproj.user

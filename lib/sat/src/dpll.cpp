@@ -26,7 +26,7 @@ using SAT::Type::Model;
 namespace 
 {
 // Hack/Naive Implementation! For now we just select the first unassigned variable
-variable select(shared_ptr<SAT::CNF>& formula, SAT::DecisionStack& model)
+variable select(const shared_ptr<SAT::CNF>& formula, const SAT::DecisionStack& model)
 {
 	variable v(0);
 	for (auto itr = formula->cbegin();

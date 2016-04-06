@@ -1,6 +1,7 @@
-### Run bench marks ###
+### Run benchmarks ###
 import subprocess
 import sys
+import threading
 from threading import Timer
 
 def run(param, timeout_sec):
@@ -11,13 +12,21 @@ def run(param, timeout_sec):
   try:
     timer.start()
     stdout,stderr = proc.communicate()
+    print("benchmark: " + param[0])
+    print(stdout.decode())
   finally:
     timer.cancel()
 
 solverpath = "../Debug/solver.exe"
-timeout = 1000
-benchmarklist = ["quinn.cnf", "simplest.cnf", "test.cnf"]
+timeout = 10000
+benchmarklist = ["quinn.cnf",
+                 #"simplest.cnf",
+                 #"test.cnf",
+                 "PHOLE-UNSAT/hole6.cnf",
+                 "AIM-3SAT-MIXED/aim-50-1_6-no-1.cnf",
+                 "AIM-3SAT-MIXED/aim-50-1_6-yes1-1.cnf"
+                ]
 paramlist = [[solverpath, "-f", x] for x in benchmarklist]
 for param in paramlist:
-	run(param, timeout)
+	threading.start_new_thread(run,(param, timeout))
 	
