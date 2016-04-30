@@ -1,6 +1,9 @@
 include_directories(./inc ../sat/inc ${Boost_INCLUDE_DIR})
-set(PARSER_HEADER_FILES ./inc/parser.h )
-add_library(parser ./src/parser.cpp ${PARSER_HEADER_FILES})
+
+file(GLOB PARSER_HEADER_FILES "./inc/*.h")
+file(GLOB PARSER_SOURCE_FILES "./src/*.cpp")
+
+add_library(parser ${PARSER_SOURCE_FILES} ${PARSER_HEADER_FILES})
 target_link_libraries(parser sat)
 
 add_executable(parser_tests ./tests/main.cpp ./tests/parsertest.cpp)
