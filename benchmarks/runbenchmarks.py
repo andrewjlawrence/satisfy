@@ -12,7 +12,7 @@ def run(param, timeout_sec):
     try:
         timer.start()
         stdout, stderr = proc.communicate()
-        print("benchmark: " + param[0])
+        print("benchmark: " + param[2])
         print(stdout.decode())
     finally:
         timer.cancel()
