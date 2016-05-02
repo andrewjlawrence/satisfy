@@ -6,6 +6,7 @@
 
 #include <string>
 #include <memory>
+#include <sat-context.h>
 
 using std::shared_ptr;
 using std::string;
@@ -19,14 +20,14 @@ namespace SAT
 
 namespace preprocessor
 {
-	class Preprocessor {
+	class Preprocessor: public SAT::Context {
 	public:
 		Preprocessor(void);
-		void process(shared_ptr<SAT::CNF>& formula, shared_ptr<SAT::Model>& SatisfyingAssignment);
+		void process();
 	private: 
-		void sortClauses(shared_ptr<SAT::CNF>& formula);
-		void removeTrivialClauses(shared_ptr<SAT::CNF>& formula, shared_ptr<SAT::Model>& SatisfyingAssignment);
-		void removePureLiterals(shared_ptr<SAT::CNF>& formula, shared_ptr<SAT::Model>& SatisfyingAssignment);
+		void sortClauses();
+		void removeTrivialClauses();
+		void removePureLiterals();
 	};
 
 } // end namespace preprocessor

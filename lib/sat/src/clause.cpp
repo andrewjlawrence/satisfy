@@ -5,7 +5,7 @@
 // STL includes
 #include <algorithm>
 #include <functional>
-#include <utils.h>
+
 
 // Project includes
 #include <clause.h>
@@ -37,74 +37,6 @@ void Clause::addliteral(Literal & literal)
 {
 	literals.push_back(literal);
 	unassignedLiterals++;
-}
-
-/*
- * Assign a variable to be true in the clause.
- */
-void Clause::assignVariableTrue(variable variableNumber)
-{
-	// Really we would remove trivially satisfiable clauses that contain e.g. x and ¬x.
-	auto itr = find_if(literals.begin(), literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber;});
-	if (itr != literals.end())
-	{
-		if (itr->getPolarity())
-		{
-			itr->assign_true();
-			trueLiterals++;
-		}
-		else
-		{
-			itr->assign_false();
-			falseLiterals++;
-		}
-		unassignedLiterals--;
-		(literals.size() == unassignedLiterals + falseLiterals + trueLiterals);
-	}
-}
-
-/*
- * Unassign a variable.
- */
-void Clause::unassignVariable(variable variableNumber)
-{
-	auto itr = find_if(literals.begin(), literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber;});
-	if (itr != literals.end())
-	{
-		// The variable will have always either been assigned true or false.
-		if (itr->isAssignedFalse())
-			falseLiterals--;
-		else
-			trueLiterals--;
-
-		unassignedLiterals++;
-		SATISFY_ASSERT(literals.size() == unassignedLiterals + falseLiterals + trueLiterals);
-		itr->unassign();
-	}
-}
-
-/*
- * Assign a variable false.
- */
-void Clause::assignVariableFalse(variable variableNumber)
-{
-	auto itr = find_if(literals.begin(), literals.end(), [variableNumber](Literal& lit) {return lit.getVariable() == variableNumber;});
-	if (itr != literals.end())
-	{
-		if (!itr->getPolarity())
-		{
-			itr->assign_true();
-			trueLiterals++;
-		}
-		else
-		{
-			itr->assign_false();
-			falseLiterals++;
-		}
-
-		unassignedLiterals--;
-		SATISFY_ASSERT(literals.size() == unassignedLiterals + falseLiterals + trueLiterals);
-	}
 }
 
 /*

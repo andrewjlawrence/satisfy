@@ -10,6 +10,7 @@
 #include <vector>
 #include <sat-types.h>
 #include <decision.h>
+#include <sat-context.h>
 
 // Using STL
 using std::shared_ptr;
@@ -20,19 +21,21 @@ namespace SAT
 // Forward declarations
 class CNF;
 
-class DPLL {
+class DPLL: public Context {
 public:
 	DPLL(void);
-	void bcp(shared_ptr<CNF>& formula, DecisionStack& model);
-	Type::variable decide(shared_ptr<CNF>& formula, DecisionStack& model);
-	bool resolveConflict(shared_ptr<CNF>& formula, DecisionStack& model);
+	/** \brief Perform boolean constraint propagation. */
+	void bcp();
+
+	/** \brief Make a decision. */
+	Type::variable decide();
+
+	/** \brief Resolve a conflict. */
+	bool resolveConflict();
+
 	/** \brief Solve a CNF formula.
-	 *  \param formula The formula to solve. 
-	 *  \param valuation The resulting model if the formula is satisfiable.
-	 *  \return true on success, false otherwise.   */
-	bool solve(shared_ptr<CNF>& formula, shared_ptr<SAT::Type::Model>& valuation);
-private:
-	string path;
+	 *  \return A model of the formula in the case that a satisfying assignment is found, false otherwise. */
+	shared_ptr<SAT::Type::Model>& solve(void);
 };
 } // end namespace SAT
 #endif // End __DPLL_H

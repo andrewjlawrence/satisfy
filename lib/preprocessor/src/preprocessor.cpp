@@ -15,23 +15,24 @@ namespace preprocessor
 	}
 
 	/* Apply preprocessing to a formula */
-	void Preprocessor::process(shared_ptr<SAT::CNF>& formula, shared_ptr<SAT::Model>& model)
+	void Preprocessor::process()
 	{
-		sortClauses(formula);
-		removeTrivialClauses(formula, model);
-		removePureLiterals(formula, model);
+		sortClauses();
+		removeTrivialClauses();
+		removePureLiterals();
 	}
 
-	void Preprocessor::sortClauses(shared_ptr<SAT::CNF>& formula)
+	void Preprocessor::sortClauses()
 	{
-		parallel::foreach(formula->begin(), formula->end(),
+		parallel::foreach(context().formula.begin(), context().formula.end(),
 			[](SAT::Clause& clause) {std::sort(clause.begin(), clause.end(),
 				[](SAT::Literal& leftlit, SAT::Literal& rightlit) {return leftlit.getVariable() < rightlit.getVariable();});});
 	}
 
-	void Preprocessor::removeTrivialClauses(shared_ptr<SAT::CNF>& formula, shared_ptr<SAT::Model>& model)
+	void Preprocessor::removeTrivialClauses()
 	{
-		formula->erase(std::remove_if(formula->begin(), formula->end(), [](SAT::Clause& clause) {
+		SAT::CNF& formula(context().formula);
+		formula.erase(std::remove_if(formula.begin(), formula.end(), [](SAT::Clause& clause) {
 			for (auto itr = clause.begin();
 				itr != clause.end();
 				itr++)
@@ -43,10 +44,10 @@ namespace preprocessor
 			}
 			return false;
 		}
-		), formula->end());
+		), formula.end());
 	}
 
-	void Preprocessor::removePureLiterals(shared_ptr<SAT::CNF>& formula, shared_ptr<SAT::Model>& model)
+	void Preprocessor::removePureLiterals()
 	{
 
 	}

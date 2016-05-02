@@ -84,35 +84,28 @@ int main(int argc, char* argv[])
 			}
 			string path(vm["input-file"].as<string>());
 			parsing::DimacsParser parser(path);
-			shared_ptr<SAT::CNF> formulaptr(0);
-			shared_ptr<SAT::Type::Model> modelptr(0);
 
 			// Attempt to load the formula.
-			if (parser.load(formulaptr))
+			if (parser.load())
 			{
 				SAT::DPLL solver;
 				high_resolution_clock::time_point t1 = high_resolution_clock::now();
-				high_resolution_clock::time_point t2;
-				if (solver.solve(formulaptr, modelptr))
+				shared_ptr<SAT::Type::Model> modelptr(solver.solve());
+				high_resolution_clock::time_point t2 = high_resolution_clock::now();
+				if (modelptr)
 				{
-					t2 = high_resolution_clock::now();
 					// The formula is satisfiable
 					std::cout << "Yes" << std::endl;
-					if (modelptr)
-					{
-						std::cout << "Satisfying Assignment: " << std::endl
+					std::cout << "Satisfying Assignment: " << std::endl
 							<< outputModel(modelptr);
-					}
 				}
 				else
 				{
-					t2 = high_resolution_clock::now();
 					// The formula is unsatisfiable
 					std::cout << "No" << std::endl;
 				}
 
 				double duration = duration_cast<microseconds>(t2 - t1).count();
-				
 				std::cout << "CPU time in seconds: " << duration / 1000000 << std::endl;
 			}
 			else

@@ -6,6 +6,7 @@
 
 #include <string>
 #include <memory>
+#include <sat-context.h>
 
 using std::shared_ptr;
 using std::string;
@@ -18,10 +19,11 @@ namespace SAT
 
 namespace parsing
 {
-	class DimacsParser {
+	class DimacsParser : public SAT::Context
+	{
 	public:
 		DimacsParser(const string& inpath);
-		bool load(shared_ptr<SAT::CNF>& formula);
+		bool load();
 	private:
 		string path;
 	};

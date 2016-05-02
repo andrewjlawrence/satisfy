@@ -25,6 +25,11 @@ CNF::CNF(uint16_t variableNumber, uint16_t clauseNumber)
 	clauses.reserve(clauseNumber);
 }
 
+CNF::CNF(void)
+	:variableNumber(0), clauseNumber(0)
+{
+}
+
 /*
  * Add a clause to the CNF
  */
@@ -36,7 +41,7 @@ void CNF::addclause(Clause& clause)
 /*
  * Get a const iterator to the beginning of the CNF.
  */
-vector<Clause>::const_iterator CNF::cbegin(void)
+vector<Clause>::const_iterator CNF::cbegin(void) const
 {
 	return clauses.cbegin();
 }
@@ -44,7 +49,7 @@ vector<Clause>::const_iterator CNF::cbegin(void)
 /*
  * Get a const iteratore to the end of the CNF.
  */
-vector<Clause>::const_iterator CNF::cend(void)
+vector<Clause>::const_iterator CNF::cend(void) const
 {
 	return clauses.cend();
 }
@@ -80,52 +85,15 @@ uint16_t CNF::getVariableNumber(void)
 	return variableNumber;
 }
 
-/*
- * Assign a variable true in the formula.
- */
-void CNF::assignVariableTrue(variable variableNumber)
+void CNF::setVariableNumber(uint16_t newVariableNumber)
 {
-	for_each(clauses.begin(), clauses.end(), bind(&Clause::assignVariableTrue, _1, variableNumber));
+	variableNumber = newVariableNumber;
 }
 
-/*
- * Assign a variable false in the formula.
- */
-void CNF::assignVariableFalse(variable variableNumber)
+void CNF::setClauseNumber(uint16_t newClauseNumber)
 {
-	for_each(clauses.begin(), clauses.end(), bind(&Clause::assignVariableFalse, _1, variableNumber));
-}
-
-/*
- * Unassign a variable in the formula.
- */
-void CNF::unassignVariable(variable variableNumber)
-{
-	for_each(clauses.begin(), clauses.end(), bind(&Clause::unassignVariable, _1, variableNumber));
-}
-
-/*
- * Check whether the formula has a conflict.
- */
-bool CNF::hasConflict(void)
-{
-	return find_if(clauses.begin(), clauses.end(), bind(&Clause::isConflict, _1)) != clauses.end();
-}
-
-/*
- * Check whether the formula has a unit clause.
- */
-Literal* CNF::hasUnit(void)
-{
-	Literal* result(nullptr);
-	for (auto itr = clauses.begin();
-	     itr != clauses.end();
-	     itr++)
-	{
-		if (result = itr->isUnit())
-			break;
-	}
-	return result;
+	clauses.reserve(newClauseNumber);
+	clauseNumber = newClauseNumber;
 }
 
 } // End namespace SAT

@@ -12,7 +12,6 @@
 #include <cnf.h>
 #include <stdlib.h>
 
-
 using std::shared_ptr;
 using std::ifstream;
 using std::string;
@@ -21,7 +20,6 @@ using SAT::CNF;
 using SAT::Literal;
 using SAT::Clause;
 
-
 namespace parsing
 {
 	DimacsParser::DimacsParser(const string & inpath)
@@ -29,7 +27,7 @@ namespace parsing
 	{
 	}
 
-	bool DimacsParser::load(shared_ptr<CNF>& formula)
+	bool DimacsParser::load()
 	{
 		bool Success(false);
 
@@ -61,11 +59,11 @@ namespace parsing
 							while (literal != 0)
 							{
 								streamline >> literal;
-								if (formula && literal != 0)
+								if (literal != 0)
 									clause.addliteral(Literal(abs(literal), 0 < literal, Literal::Assignment::Unassigned));
 							}
 
-							formula->addclause(clause);
+							context().formula.addclause(clause);
 						}
 						else
 						{
@@ -87,7 +85,8 @@ namespace parsing
 							streamline >> variableNumber;
 							streamline >> clauseNumber;
 
-							formula = std::make_shared<CNF>(CNF(variableNumber, clauseNumber));
+							context().formula.setVariableNumber(variableNumber);
+							context().formula.setClauseNumber(clauseNumber);
 
 							headerRead = true;
 						}
