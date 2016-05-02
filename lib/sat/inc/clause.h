@@ -6,7 +6,7 @@
 
 #include <vector>
 #include <literal.h>
-#include <sat-types.h>
+#include <types.h>
 #include <utils.h>
 
 

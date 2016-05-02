@@ -11,7 +11,7 @@
 #include <functional>
 
 // Project includes
-#include <sat-types.h>
+#include <types.h>
 #include <clause.h>
 
 // Using STL 

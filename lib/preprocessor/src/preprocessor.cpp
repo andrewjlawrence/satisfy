@@ -4,7 +4,7 @@
 
 #include <preprocessor.h>
 #include <cnf.h>
-#include <sat-types.h>
+#include <types.h>
 #include <algorithm>
 #include <parforeach.h>
 namespace preprocessor

@@ -10,7 +10,7 @@
 // SAT library includes
 #include <cnf.h>
 #include <decision.h>
-#include <sat-types.h>
+#include <types.h>
 
 namespace SAT
 {

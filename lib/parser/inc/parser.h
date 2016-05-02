@@ -6,7 +6,7 @@
 
 #include <string>
 #include <memory>
-#include <sat-context.h>
+#include <context.h>
 
 using std::shared_ptr;
 using std::string;

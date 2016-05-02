@@ -8,9 +8,9 @@
 #include <memory>
 #include <map>
 #include <vector>
-#include <sat-types.h>
+#include <types.h>
 #include <decision.h>
-#include <sat-context.h>
+#include <context.h>
 
 // Using STL
 using std::shared_ptr;

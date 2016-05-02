@@ -4,7 +4,7 @@
 #ifndef __LITERAL_H
 #define __LITERAL_H
 
-#include <sat-types.h>
+#include <types.h>
 
 namespace SAT
 {

@@ -2,7 +2,7 @@
 * Copyright 2016 Andrew Lawrence
 */
 
-#include <sat-context.h>
+#include <context.h>
 
 namespace SAT
 {
