@@ -5,7 +5,7 @@
 #define __HEURISTIC_H
 
 // Project includes
-#include <sat-types.h>
+#include <types.h>
 
 namespace SAT
 {
