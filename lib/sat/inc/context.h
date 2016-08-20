@@ -5,12 +5,14 @@
 #define __SAT_CONTEXT_H
 
 // STL includes
-#include <vector>
+#include <set>
 
 // SAT library includes
 #include <cnf.h>
 #include <decision.h>
 #include <types.h>
+
+using std::set;
 
 namespace SAT
 {
@@ -22,6 +24,8 @@ namespace SAT
 		CNF formula;
 		//! The decision stack.
 		DecisionStack valuation;
+		//! The literals that occur in the formula.
+		set<SAT::Literal> literals;
 		// Accessor for the singleton context.
 		Context& context(void);
 	protected:

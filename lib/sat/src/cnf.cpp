@@ -72,9 +72,14 @@ void CNF::erase(vector<Clause>::iterator & begin, vector<Clause>::iterator & end
 /*
  * Get the clauses in the CNF.
  */
-void CNF::getclauses(vector<Clause>& outClauses)
+vector<Clause>& CNF::getclauses()
 {
-	outClauses = clauses;
+	return clauses;
+}
+
+const vector<Clause>& CNF::getclauses() const
+{
+	return clauses;
 }
 
 /*

@@ -50,9 +50,9 @@ public:
 	/** \brief Erase part of the formula. */
 	void erase(vector<Clause>::iterator& begin, vector<Clause>::iterator& end);
 
-	/* I dont think we should be passing the formula around */
-	void getclauses(vector<Clause>& outClauses);
-	
+	vector<Clause>& getclauses(void);
+	const vector<Clause>& getclauses(void) const;
+
 	/** \brief Get the number of variables in the formula */
 	uint16_t getVariableNumber(void);
 	

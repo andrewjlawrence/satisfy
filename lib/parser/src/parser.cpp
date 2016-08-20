@@ -60,7 +60,11 @@ namespace parsing
 							{
 								streamline >> literal;
 								if (literal != 0)
-									clause.addliteral(Literal(abs(literal), 0 < literal, Literal::Assignment::Unassigned));
+								{
+									Literal newLit(abs(literal), 0 < literal, Literal::Assignment::Unassigned);
+									clause.addliteral(newLit);
+									context().literals.insert(newLit);
+								}
 							}
 
 							context().formula.addclause(clause);
