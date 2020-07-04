@@ -134,7 +134,7 @@ variable DPLL::decide()
 /*
  * Solve the formula
  */
-shared_ptr<Model>& DPLL::solve(void)
+shared_ptr<Model> DPLL::solve(void)
 {
 	while (true)
 	{	

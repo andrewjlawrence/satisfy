@@ -89,7 +89,7 @@ public:
 	bool isConflict(void);
 	
 	/** \brief Check whether a clause is unit */
-	Literal* isUnit(void);
+	Literal* getUnit(void);
 
 	/** Accessors for underlying iterators */
 	vector<Literal>::const_iterator cbegin(void) const;

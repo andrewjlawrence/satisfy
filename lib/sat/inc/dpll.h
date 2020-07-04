@@ -35,7 +35,7 @@ public:
 
 	/** \brief Solve a CNF formula.
 	 *  \return A model of the formula in the case that a satisfying assignment is found, false otherwise. */
-	shared_ptr<SAT::Type::Model>& solve(void);
+	shared_ptr<SAT::Type::Model> solve(void);
 };
 } // end namespace SAT
 #endif // End __DPLL_H

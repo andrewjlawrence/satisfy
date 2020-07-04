@@ -93,13 +93,14 @@ public:
 	{
 		Literal* result(nullptr);
 		for (auto itr = clauses.begin();
-			itr != clauses.end();
-			itr++)
+		     itr != clauses.end();
+		     itr++)
 		{
-			if (result = itr->isUnit())
-				break;
+		        result = itr->getUnit();
+			if (result)
+			    return result;
 		}
-		return result;
+		return nullptr;
 	}
 
 private:

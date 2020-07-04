@@ -10,7 +10,7 @@ using SAT::Type::Model;
 
 namespace SAT
 {
-Decision::Decision(Assignment& assignment, bool isBranch)
+Decision::Decision(const Assignment& assignment, bool isBranch)
 	: assignment(assignment), flipped(false), branch(isBranch)
 {
 }

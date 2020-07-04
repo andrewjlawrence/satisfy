@@ -56,14 +56,20 @@ namespace SAT
 		return polarity;
 	}
 
-	bool Literal::operator==(const Literal & rhs) const
+	bool Literal::operator==(const Literal& rhs) const
 	{
 		return polarity == rhs.polarity &&
-			   assignment == rhs.assignment;
+		       assignment == rhs.assignment;
 	}
 
-	bool Literal::operator!=(const Literal & rhs) const
+	bool Literal::operator!=(const Literal& rhs) const
 	{
 		return !(*this == rhs);
 	}
+
+	bool Literal::operator<(const Literal& other) const
+	{
+		return this->var < other.var && this->polarity < other.polarity;
+	}
+
 } // End namespace SAT

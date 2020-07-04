@@ -1,4 +1,4 @@
-#include "..\inc\parser.h"
+#include "parser.h"
 /*
  * Copyright 2015 Andrew Lawrence
  */

@@ -51,7 +51,7 @@ bool Clause::isConflict(void)
  * Check whether a clause is unit. i.e. All but one of its clauses are assigned false 
  * and the remaining one is unassigned. Since it is the only one left it must be true.
  */
-Literal* Clause::isUnit(void)
+Literal* Clause::getUnit(void)
 {
 	Literal* result(nullptr);
 	if ((literals.size() - falseLiterals == 1) && unassignedLiterals == 1)

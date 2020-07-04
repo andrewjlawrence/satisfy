@@ -15,10 +15,22 @@ namespace SAT
 class Decision
 {
 public:
-	/** \brief Constructor 
+	/** 
+         *  \brief Constructor 
 	 *  \param decision The decision 
-	 *  \param flag indicating that this is a branch */
-	Decision(Type::Assignment& decision, bool isBranch);
+	 *  \param flag indicating that this is a branch 
+         */
+	Decision(const Type::Assignment& decision, bool isBranch);
+
+        /**
+         * Copy constructor
+         */
+	Decision(const Decision& other);
+        
+        /**
+         * Copy assignment operator
+	 */
+	const Decision& operator=(const Decision& other);
 
 	/** \brief Flip the decision if its been flipped.
 		*  \return true if the flip was successful, false otherwise. */
